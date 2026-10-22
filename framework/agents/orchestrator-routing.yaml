@@ -1,0 +1,35 @@
+# Current operational model assignments (user-set, replaceable data).
+# Invariants live in .planning/orch/agents/ORCHESTRATOR_AGENT.md (Routing); this file holds assignments only.
+# Decision-side roles share one model initially (accepted homogeneity; recorded at apply).
+# Family separation is executor/reviewer-only.
+#
+# Every routed role explicitly pins thinking: high; no role inherits a provider default.
+# Keep this setting visible with each assignment so dispatch is deterministic.
+planning:
+  provider: github-copilot
+  model: gpt-6.1-sol
+  thinking: high
+implementation:
+  provider: github-copilot
+  model: gpt-6-luna
+  thinking: high
+reviewer:
+  provider: opencode-go
+  model: deepseek-v4.1-flash
+  thinking: high
+architect:
+  provider: opencode-go
+  model: glm-5.3-flash
+  thinking: high
+interlocutor:
+  provider: opencode-go
+  model: glm-5.3-flash
+  thinking: high
+deliberation:
+  provider: opencode-go
+  model: glm-5.3-flash
+  thinking: high
+research:
+  provider: opencode-go
+  model: deepseek-v4.1-flash
+  thinking: high
