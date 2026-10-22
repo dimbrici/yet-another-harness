@@ -1,0 +1,310 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2060" height="2935" viewBox="0 0 2060 2935" font-family="'DejaVu Sans Mono', 'Menlo', 'Consolas', 'Liberation Mono', 'Courier New', monospace" font-size="14px">
+  <defs>
+    <marker id="r13209a7e-arrow-2f5bb7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f5bb7"/>
+    </marker>
+    <marker id="r13209a7e-arrow-6b46c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b46c1"/>
+    </marker>
+    <marker id="r13209a7e-arrow-2e7d4f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2e7d4f"/>
+    </marker>
+    <marker id="r13209a7e-arrow-1d7f8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d7f8c"/>
+    </marker>
+    <marker id="r13209a7e-arrow-b83280" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b83280"/>
+    </marker>
+    <marker id="r13209a7e-arrow-b3261e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b3261e"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="2060" height="2935" fill="#ffffff"/>
+  <g font-size="30px">
+  <text x="704.5" y="71" fill="#1f2328" text-anchor="start">How the orchestration workflows work</text>
+  </g>
+  <g font-size="12px">
+  <text x="632.5" y="117.2" fill="#1f2328" text-anchor="start">One control plane delegates every edit, test, Git action and cluster action to workers; humans hold the gates.</text>
+  </g>
+  <path d="M867 177 H1190 a8 8 0 0 1 8 8 V558 a8 8 0 0 1 -8 8 H867 a8 8 0 0 1 -8 -8 V185 a8 8 0 0 1 8 -8 Z" fill="#e8eefb" stroke="#2f5bb7"/>
+  <text x="873" y="205.4" fill="#1f2328" text-anchor="start">ORCHESTRATOR - the sole control plane</text>
+  <path d="M888 220 H1169 a8 8 0 0 1 8 8 V316 a8 8 0 0 1 -8 8 H888 a8 8 0 0 1 -8 -8 V228 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1028.5" y="248.4" fill="#1f2328" text-anchor="middle">DOES: classify work; resolve</text>
+  <text x="1028.5" y="267.4" fill="#1f2328" text-anchor="middle">dependencies; assign agents;</text>
+  <text x="1028.5" y="286.4" fill="#1f2328" text-anchor="middle">gather evidence; mediate</text>
+  <text x="1028.5" y="305.4" fill="#1f2328" text-anchor="middle">corrections; report</text>
+  <path d="M888 334 H1169 a8 8 0 0 1 8 8 V430 a8 8 0 0 1 -8 8 H888 a8 8 0 0 1 -8 -8 V342 a8 8 0 0 1 8 -8 Z" fill="#fdecec" stroke="#b3261e"/>
+  <text x="1028.5" y="362.4" fill="#1f2328" text-anchor="middle">DOES NOT: edit the repo; run</text>
+  <text x="1028.5" y="381.4" fill="#1f2328" text-anchor="middle">tests; mutate Git; act on the</text>
+  <text x="1028.5" y="400.4" fill="#1f2328" text-anchor="middle">live cluster. All of that is</text>
+  <text x="1028.5" y="419.4" fill="#1f2328" text-anchor="middle">delegated to workers.</text>
+  <path d="M888 448 H1169 a8 8 0 0 1 8 8 V544 a8 8 0 0 1 -8 8 H888 a8 8 0 0 1 -8 -8 V456 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1028.5" y="476.4" fill="#1f2328" text-anchor="middle">Sole writer of .planning/ledger</text>
+  <text x="1028.5" y="495.4" fill="#1f2328" text-anchor="middle">and the tsk board. Accepts,</text>
+  <text x="1028.5" y="514.4" fill="#1f2328" text-anchor="middle">blocks or escalates; never turns</text>
+  <text x="1028.5" y="533.4" fill="#1f2328" text-anchor="middle">a worker into its own reviewer.</text>
+  <path d="M1262 177 H1571 a8 8 0 0 1 8 8 V653 a8 8 0 0 1 -8 8 H1262 a8 8 0 0 1 -8 -8 V185 a8 8 0 0 1 8 -8 Z" fill="#fff4dc" stroke="#b7791f"/>
+  <text x="1268" y="205.4" fill="#1f2328" text-anchor="start">HUMAN GATES - explicit approval</text>
+  <path d="M1276 220 H1557 a8 8 0 0 1 8 8 V278 a8 8 0 0 1 -8 8 H1276 a8 8 0 0 1 -8 -8 V228 a8 8 0 0 1 8 -8 Z" fill="#fff4dc" stroke="#b7791f"/>
+  <text x="1416.5" y="248.4" fill="#1f2328" text-anchor="middle">Repository edit: explicit</text>
+  <text x="1416.5" y="267.4" fill="#1f2328" text-anchor="middle">authorization before ANY edit</text>
+  <path d="M1276 296 H1557 a8 8 0 0 1 8 8 V373 a8 8 0 0 1 -8 8 H1276 a8 8 0 0 1 -8 -8 V304 a8 8 0 0 1 8 -8 Z" fill="#fff4dc" stroke="#b7791f"/>
+  <text x="1416.5" y="324.4" fill="#1f2328" text-anchor="middle">Git, secrets, deployment, live</text>
+  <text x="1416.5" y="343.4" fill="#1f2328" text-anchor="middle">cluster: each needs its own</text>
+  <text x="1416.5" y="362.4" fill="#1f2328" text-anchor="middle">separate approval</text>
+  <path d="M1276 391 H1557 a8 8 0 0 1 8 8 V449 a8 8 0 0 1 -8 8 H1276 a8 8 0 0 1 -8 -8 V399 a8 8 0 0 1 8 -8 Z" fill="#fff4dc" stroke="#b7791f"/>
+  <text x="1416.5" y="419.4" fill="#1f2328" text-anchor="middle">Network: none unless separately</text>
+  <text x="1416.5" y="438.4" fill="#1f2328" text-anchor="middle">authorized (research: per brief)</text>
+  <path d="M1276 467 H1557 a8 8 0 0 1 8 8 V544 a8 8 0 0 1 -8 8 H1276 a8 8 0 0 1 -8 -8 V475 a8 8 0 0 1 8 -8 Z" fill="#fff4dc" stroke="#b7791f"/>
+  <text x="1416.5" y="495.4" fill="#1f2328" text-anchor="middle">Decisions: Interlocutor closes</text>
+  <text x="1416.5" y="514.4" fill="#1f2328" text-anchor="middle">only on explicit human confirm;</text>
+  <text x="1416.5" y="533.4" fill="#1f2328" text-anchor="middle">batch = approve, deny, amend</text>
+  <path d="M1276 562 H1557 a8 8 0 0 1 8 8 V639 a8 8 0 0 1 -8 8 H1276 a8 8 0 0 1 -8 -8 V570 a8 8 0 0 1 8 -8 Z" fill="#fff4dc" stroke="#b7791f"/>
+  <text x="1416.5" y="590.4" fill="#1f2328" text-anchor="middle">Refactor: human authorizes scope</text>
+  <text x="1416.5" y="609.4" fill="#1f2328" text-anchor="middle">before edits; revision cycles</text>
+  <text x="1416.5" y="628.4" fill="#1f2328" text-anchor="middle">need a human in SHADOW mode</text>
+  <path d="M1133 771 H1305 a8 8 0 0 1 8 8 V848 a8 8 0 0 1 -8 8 H1133 a8 8 0 0 1 -8 -8 V779 a8 8 0 0 1 8 -8 Z" fill="#e8eefb" stroke="#2f5bb7"/>
+  <text x="1219" y="799.4" fill="#1f2328" text-anchor="middle">CLASSIFY first: are</text>
+  <text x="1219" y="818.4" fill="#1f2328" text-anchor="middle">requirements and</text>
+  <text x="1219" y="837.4" fill="#1f2328" text-anchor="middle">decisions settled?</text>
+  <path d="M836 966 H1602 a8 8 0 0 1 8 8 V1816 a8 8 0 0 1 -8 8 H836 a8 8 0 0 1 -8 -8 V974 a8 8 0 0 1 8 -8 Z" fill="#e8f5ec" stroke="#2e7d4f"/>
+  <text x="842" y="994.4" fill="#1f2328" text-anchor="start">EXECUTION WORKFLOW</text>
+  <text x="842" y="1013.4" fill="#1f2328" text-anchor="start">settled work</text>
+  <path d="M850 1028 H1156 a8 8 0 0 1 8 8 V1105 a8 8 0 0 1 -8 8 H850 a8 8 0 0 1 -8 -8 V1036 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1003" y="1056.4" fill="#1f2328" text-anchor="middle">Planner (conditional): partitions</text>
+  <text x="1003" y="1075.4" fill="#1f2328" text-anchor="middle">the settled spec into</text>
+  <text x="1003" y="1094.4" fill="#1f2328" text-anchor="middle">acceptance packages; advisory</text>
+  <path d="M850 1169 H1156 a8 8 0 0 1 8 8 V1265 a8 8 0 0 1 -8 8 H850 a8 8 0 0 1 -8 -8 V1177 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1003" y="1197.4" fill="#1f2328" text-anchor="middle">Direct or planner brief: objective,</text>
+  <text x="1003" y="1216.4" fill="#1f2328" text-anchor="middle">boundaries, acceptance,</text>
+  <text x="1003" y="1235.4" fill="#1f2328" text-anchor="middle">prohibitions, risk + reviewer</text>
+  <text x="1003" y="1254.4" fill="#1f2328" text-anchor="middle">route, callbacks</text>
+  <path d="M850 1329 H1156 a8 8 0 0 1 8 8 V1406 a8 8 0 0 1 -8 8 H850 a8 8 0 0 1 -8 -8 V1337 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1003" y="1357.4" fill="#1f2328" text-anchor="middle">Implementation agent: fresh, one</text>
+  <text x="1003" y="1376.4" fill="#1f2328" text-anchor="middle">bounded assignment; edits in</text>
+  <text x="1003" y="1395.4" fill="#1f2328" text-anchor="middle">scope; never reviews itself</text>
+  <path d="M850 1470 H1156 a8 8 0 0 1 8 8 V1566 a8 8 0 0 1 -8 8 H850 a8 8 0 0 1 -8 -8 V1478 a8 8 0 0 1 8 -8 Z" fill="#fbe9f1" stroke="#b83280"/>
+  <text x="1003" y="1498.4" fill="#1f2328" text-anchor="middle">Independent Reviewer: fresh,</text>
+  <text x="1003" y="1517.4" fill="#1f2328" text-anchor="middle">read-only, DIFFERENT model</text>
+  <text x="1003" y="1536.4" fill="#1f2328" text-anchor="middle">family than the executor;</text>
+  <text x="1003" y="1555.4" fill="#1f2328" text-anchor="middle">PASS or FAIL, never repairs</text>
+  <path d="M850 1655.4 H1156 a8 8 0 0 1 8 8 V1732.4 a8 8 0 0 1 -8 8 H850 a8 8 0 0 1 -8 -8 V1663.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1003" y="1683.8" fill="#1f2328" text-anchor="middle">PASS accepted by the</text>
+  <text x="1003" y="1702.8" fill="#1f2328" text-anchor="middle">Orchestrator = package</text>
+  <text x="1003" y="1721.8" fill="#1f2328" text-anchor="middle">complete; dependents unlock</text>
+  <path d="M1282 1432 H1588 a8 8 0 0 1 8 8 V1604 a8 8 0 0 1 -8 8 H1282 a8 8 0 0 1 -8 -8 V1440 a8 8 0 0 1 8 -8 Z" fill="#fbe9f1" stroke="#b83280"/>
+  <text x="1435" y="1460.4" fill="#1f2328" text-anchor="middle">BOUNDED REVISION LOOP</text>
+  <text x="1435" y="1479.4" fill="#1f2328" text-anchor="middle">(correctable FAIL only):</text>
+  <text x="1435" y="1498.4" fill="#1f2328" text-anchor="middle">evidence gate records a</text>
+  <text x="1435" y="1517.4" fill="#1f2328" text-anchor="middle">reproduction; fresh implementer</text>
+  <text x="1435" y="1536.4" fill="#1f2328" text-anchor="middle">fixes blocking findings; fresh</text>
+  <text x="1435" y="1555.4" fill="#1f2328" text-anchor="middle">review. MAX 3 CYCLES.</text>
+  <text x="1435" y="1574.4" fill="#1f2328" text-anchor="middle">SHADOW mode: human</text>
+  <text x="1435" y="1593.4" fill="#1f2328" text-anchor="middle">authorizes each cycle</text>
+  <path d="M1282 1668 H1588 a8 8 0 0 1 8 8 V1802 a8 8 0 0 1 -8 8 H1282 a8 8 0 0 1 -8 -8 V1676 a8 8 0 0 1 8 -8 Z" fill="#fdecec" stroke="#b3261e"/>
+  <text x="1435" y="1696.4" fill="#1f2328" text-anchor="middle">ESCALATE to the human: cap</text>
+  <text x="1435" y="1715.4" fill="#1f2328" text-anchor="middle">reached, no progress,</text>
+  <text x="1435" y="1734.4" fill="#1f2328" text-anchor="middle">disagreement, scope change,</text>
+  <text x="1435" y="1753.4" fill="#1f2328" text-anchor="middle">newly exposed ambiguity,</text>
+  <text x="1435" y="1772.4" fill="#1f2328" text-anchor="middle">irreversible step. Stop</text>
+  <text x="1435" y="1791.4" fill="#1f2328" text-anchor="middle">reason recorded in ledger</text>
+  <path d="M48 966 H710 a8 8 0 0 1 8 8 V1971.4 a8 8 0 0 1 -8 8 H48 a8 8 0 0 1 -8 -8 V974 a8 8 0 0 1 8 -8 Z" fill="#f1ecfb" stroke="#6b46c1"/>
+  <text x="54" y="994.4" fill="#1f2328" text-anchor="start">DECISION WORKFLOW</text>
+  <text x="54" y="1013.4" fill="#1f2328" text-anchor="start">unresolved product or</text>
+  <text x="54" y="1032.4" fill="#1f2328" text-anchor="start">architecture questions</text>
+  <path d="M62 1047 H343 a8 8 0 0 1 8 8 V1105 a8 8 0 0 1 -8 8 H62 a8 8 0 0 1 -8 -8 V1055 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="202.5" y="1075.4" fill="#1f2328" text-anchor="middle">QUESTION POOL:</text>
+  <text x="202.5" y="1094.4" fill="#1f2328" text-anchor="middle">open questions enter</text>
+  <path d="M62 1169 H343 a8 8 0 0 1 8 8 V1246 a8 8 0 0 1 -8 8 H62 a8 8 0 0 1 -8 -8 V1177 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="202.5" y="1197.4" fill="#1f2328" text-anchor="middle">Research lane (human decides</text>
+  <text x="202.5" y="1216.4" fill="#1f2328" text-anchor="middle">per item): read-only</text>
+  <text x="202.5" y="1235.4" fill="#1f2328" text-anchor="middle">Researcher, one evidence brief</text>
+  <path d="M62 1310 H343 a8 8 0 0 1 8 8 V1387 a8 8 0 0 1 -8 8 H62 a8 8 0 0 1 -8 -8 V1318 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="202.5" y="1338.4" fill="#1f2328" text-anchor="middle">Architect triages each item:</text>
+  <text x="202.5" y="1357.4" fill="#1f2328" text-anchor="middle">major or minor (human may</text>
+  <text x="202.5" y="1376.4" fill="#1f2328" text-anchor="middle">pull any item to major)</text>
+  <path d="M62 1476.4 H343 a8 8 0 0 1 8 8 V1534.4 a8 8 0 0 1 -8 8 H62 a8 8 0 0 1 -8 -8 V1484.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="202.5" y="1504.8" fill="#1f2328" text-anchor="middle">MAJOR: fresh Interlocutor</text>
+  <text x="202.5" y="1523.8" fill="#1f2328" text-anchor="middle">discusses with the human</text>
+  <path d="M415 1476.4 H696 a8 8 0 0 1 8 8 V1534.4 a8 8 0 0 1 -8 8 H415 a8 8 0 0 1 -8 -8 V1484.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="555.5" y="1504.8" fill="#1f2328" text-anchor="middle">MINOR: Decision Maker +</text>
+  <text x="555.5" y="1523.8" fill="#1f2328" text-anchor="middle">one fresh Critic, one pass</text>
+  <path d="M238.5 1598.4 H519.5 a8 8 0 0 1 8 8 V1694.4 a8 8 0 0 1 -8 8 H238.5 a8 8 0 0 1 -8 -8 V1606.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="379" y="1626.8" fill="#1f2328" text-anchor="middle">Architect conformance check:</text>
+  <text x="379" y="1645.8" fill="#1f2328" text-anchor="middle">(a) consistent with specs</text>
+  <text x="379" y="1664.8" fill="#1f2328" text-anchor="middle">(b) correctly laned</text>
+  <text x="379" y="1683.8" fill="#1f2328" text-anchor="middle">(c) complete enough to integrate</text>
+  <path d="M238.5 1758.4 H519.5 a8 8 0 0 1 8 8 V1816.4 a8 8 0 0 1 -8 8 H238.5 a8 8 0 0 1 -8 -8 V1766.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="379" y="1786.8" fill="#1f2328" text-anchor="middle">Batch: human approves, denies</text>
+  <text x="379" y="1805.8" fill="#1f2328" text-anchor="middle">or amends each minor item</text>
+  <path d="M238.5 1880.4 H519.5 a8 8 0 0 1 8 8 V1957.4 a8 8 0 0 1 -8 8 H238.5 a8 8 0 0 1 -8 -8 V1888.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="379" y="1908.8" fill="#1f2328" text-anchor="middle">Architect integrates (sole</text>
+  <text x="379" y="1927.8" fill="#1f2328" text-anchor="middle">writer): .planning/specs +</text>
+  <text x="379" y="1946.8" fill="#1f2328" text-anchor="middle">.planning/decisions</text>
+  <path d="M1728 966 H2012 a8 8 0 0 1 8 8 V1965 a8 8 0 0 1 -8 8 H1728 a8 8 0 0 1 -8 -8 V974 a8 8 0 0 1 8 -8 Z" fill="#e4f4f6" stroke="#1d7f8c"/>
+  <text x="1734" y="994.4" fill="#1f2328" text-anchor="start">REFACTORING WORKFLOW</text>
+  <text x="1734" y="1013.4" fill="#1f2328" text-anchor="start">large one-time refactor,</text>
+  <text x="1734" y="1032.4" fill="#1f2328" text-anchor="start">not feature-triggered. Reuses</text>
+  <text x="1734" y="1051.4" fill="#1f2328" text-anchor="start">execution roles, review, ledger</text>
+  <text x="1734" y="1070.4" fill="#1f2328" text-anchor="start">and correction loop</text>
+  <path d="M1742 1085 H1998 a8 8 0 0 1 8 8 V1143 a8 8 0 0 1 -8 8 H1742 a8 8 0 0 1 -8 -8 V1093 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1870" y="1113.4" fill="#1f2328" text-anchor="middle">1 Diagnose and scope</text>
+  <text x="1870" y="1132.4" fill="#1f2328" text-anchor="middle">(refactor-analysis)</text>
+  <path d="M1742 1207 H1998 a8 8 0 0 1 8 8 V1265 a8 8 0 0 1 -8 8 H1742 a8 8 0 0 1 -8 -8 V1215 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1870" y="1235.4" fill="#1f2328" text-anchor="middle">2 Gate: anti-overengineering</text>
+  <text x="1870" y="1254.4" fill="#1f2328" text-anchor="middle">may REJECT the plan</text>
+  <path d="M1742 1329 H1998 a8 8 0 0 1 8 8 V1387 a8 8 0 0 1 -8 8 H1742 a8 8 0 0 1 -8 -8 V1337 a8 8 0 0 1 8 -8 Z" fill="#fff4dc" stroke="#b7791f"/>
+  <text x="1870" y="1357.4" fill="#1f2328" text-anchor="middle">3 Human authorizes refactor</text>
+  <text x="1870" y="1376.4" fill="#1f2328" text-anchor="middle">scope (HIGH by default)</text>
+  <path d="M1742 1451 H1998 a8 8 0 0 1 8 8 V1528 a8 8 0 0 1 -8 8 H1742 a8 8 0 0 1 -8 -8 V1459 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1870" y="1479.4" fill="#1f2328" text-anchor="middle">4 Capture baseline: commit,</text>
+  <text x="1870" y="1498.4" fill="#1f2328" text-anchor="middle">git status, validation</text>
+  <text x="1870" y="1517.4" fill="#1f2328" text-anchor="middle">battery, golden output</text>
+  <path d="M1742 1592 H1998 a8 8 0 0 1 8 8 V1650 a8 8 0 0 1 -8 8 H1742 a8 8 0 0 1 -8 -8 V1600 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1870" y="1620.4" fill="#1f2328" text-anchor="middle">5 Behavior-preserving slices;</text>
+  <text x="1870" y="1639.4" fill="#1f2328" text-anchor="middle">safe-refactor per slice</text>
+  <path d="M1742 1714 H1998 a8 8 0 0 1 8 8 V1791 a8 8 0 0 1 -8 8 H1742 a8 8 0 0 1 -8 -8 V1722 a8 8 0 0 1 8 -8 Z" fill="#fbe9f1" stroke="#b83280"/>
+  <text x="1870" y="1742.4" fill="#1f2328" text-anchor="middle">6-7 Fresh reviewer per slice;</text>
+  <text x="1870" y="1761.4" fill="#1f2328" text-anchor="middle">full battery green at</text>
+  <text x="1870" y="1780.4" fill="#1f2328" text-anchor="middle">slice end</text>
+  <path d="M1742 1855 H1998 a8 8 0 0 1 8 8 V1951 a8 8 0 0 1 -8 8 H1742 a8 8 0 0 1 -8 -8 V1863 a8 8 0 0 1 8 -8 Z" fill="#fff4dc" stroke="#b7791f"/>
+  <text x="1870" y="1883.4" fill="#1f2328" text-anchor="middle">8 PASS completes slice.</text>
+  <text x="1870" y="1902.4" fill="#1f2328" text-anchor="middle">Merge-back = authorized Git</text>
+  <text x="1870" y="1921.4" fill="#1f2328" text-anchor="middle">action by a worker, never</text>
+  <text x="1870" y="1940.4" fill="#1f2328" text-anchor="middle">the Orchestrator</text>
+  <path d="M48 2089.4 H800 a8 8 0 0 1 8 8 V2508.4 a8 8 0 0 1 -8 8 H48 a8 8 0 0 1 -8 -8 V2097.4 a8 8 0 0 1 8 -8 Z" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="54" y="2117.8" fill="#1f2328" text-anchor="start">ROLES (assignments live in orchestrator-routing.yaml:</text>
+  <text x="54" y="2136.8" fill="#1f2328" text-anchor="start">replaceable data, not workflow rules)</text>
+  <path d="M62 2151.4 H388 a8 8 0 0 1 8 8 V2399.4 a8 8 0 0 1 -8 8 H62 a8 8 0 0 1 -8 -8 V2159.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="68" y="2179.8" fill="#1f2328" text-anchor="start">Execution side</text>
+  <path d="M76 2194.4 H374 a8 8 0 0 1 8 8 V2233.4 a8 8 0 0 1 -8 8 H76 a8 8 0 0 1 -8 -8 V2202.4 a8 8 0 0 1 8 -8 Z" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="225" y="2222.8" fill="#1f2328" text-anchor="middle">planning: Planner, advisory only</text>
+  <path d="M76 2251.4 H374 a8 8 0 0 1 8 8 V2309.4 a8 8 0 0 1 -8 8 H76 a8 8 0 0 1 -8 -8 V2259.4 a8 8 0 0 1 8 -8 Z" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="225" y="2279.8" fill="#1f2328" text-anchor="middle">implementation: Executor, the only</text>
+  <text x="225" y="2298.8" fill="#1f2328" text-anchor="middle">role that edits code</text>
+  <path d="M76 2327.4 H374 a8 8 0 0 1 8 8 V2385.4 a8 8 0 0 1 -8 8 H76 a8 8 0 0 1 -8 -8 V2335.4 a8 8 0 0 1 8 -8 Z" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="225" y="2355.8" fill="#1f2328" text-anchor="middle">reviewer: fresh Independent</text>
+  <text x="225" y="2374.8" fill="#1f2328" text-anchor="middle">Reviewer, read-only</text>
+  <path d="M460 2151.4 H786 a8 8 0 0 1 8 8 V2494.4 a8 8 0 0 1 -8 8 H460 a8 8 0 0 1 -8 -8 V2159.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="466" y="2179.8" fill="#1f2328" text-anchor="start">Decision side</text>
+  <path d="M474 2194.4 H747 a8 8 0 0 1 8 8 V2252.4 a8 8 0 0 1 -8 8 H474 a8 8 0 0 1 -8 -8 V2202.4 a8 8 0 0 1 8 -8 Z" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="610.5" y="2222.8" fill="#1f2328" text-anchor="middle">architect: triage, conformance,</text>
+  <text x="610.5" y="2241.8" fill="#1f2328" text-anchor="middle">sole writer of specs + log</text>
+  <path d="M474 2270.4 H747 a8 8 0 0 1 8 8 V2328.4 a8 8 0 0 1 -8 8 H474 a8 8 0 0 1 -8 -8 V2278.4 a8 8 0 0 1 8 -8 Z" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="610.5" y="2298.8" fill="#1f2328" text-anchor="middle">interlocutor: discusses major</text>
+  <text x="610.5" y="2317.8" fill="#1f2328" text-anchor="middle">items with the human</text>
+  <path d="M474 2346.4 H747 a8 8 0 0 1 8 8 V2404.4 a8 8 0 0 1 -8 8 H474 a8 8 0 0 1 -8 -8 V2354.4 a8 8 0 0 1 8 -8 Z" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="610.5" y="2374.8" fill="#1f2328" text-anchor="middle">deliberation: Decision Maker +</text>
+  <text x="610.5" y="2393.8" fill="#1f2328" text-anchor="middle">Critic, one shared assignment</text>
+  <path d="M474 2422.4 H747 a8 8 0 0 1 8 8 V2480.4 a8 8 0 0 1 -8 8 H474 a8 8 0 0 1 -8 -8 V2430.4 a8 8 0 0 1 8 -8 Z" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="610.5" y="2450.8" fill="#1f2328" text-anchor="middle">research: read-only Researcher,</text>
+  <text x="610.5" y="2469.8" fill="#1f2328" text-anchor="middle">one evidence brief per item</text>
+  <path d="M872 2089.4 H1181 a8 8 0 0 1 8 8 V2432.4 a8 8 0 0 1 -8 8 H872 a8 8 0 0 1 -8 -8 V2097.4 a8 8 0 0 1 8 -8 Z" fill="#fbe9f1" stroke="#b83280"/>
+  <text x="878" y="2117.8" fill="#1f2328" text-anchor="start">INDEPENDENCE RULES</text>
+  <path d="M886 2132.4 H1167 a8 8 0 0 1 8 8 V2228.4 a8 8 0 0 1 -8 8 H886 a8 8 0 0 1 -8 -8 V2140.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1026.5" y="2160.8" fill="#1f2328" text-anchor="middle">Reviewer = FRESH agent from a</text>
+  <text x="1026.5" y="2179.8" fill="#1f2328" text-anchor="middle">DIFFERENT model family than the</text>
+  <text x="1026.5" y="2198.8" fill="#1f2328" text-anchor="middle">executor, never its exact model.</text>
+  <text x="1026.5" y="2217.8" fill="#1f2328" text-anchor="middle">Verified at every dispatch.</text>
+  <path d="M886 2246.4 H1167 a8 8 0 0 1 8 8 V2304.4 a8 8 0 0 1 -8 8 H886 a8 8 0 0 1 -8 -8 V2254.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1026.5" y="2274.8" fill="#1f2328" text-anchor="middle">Decision-side pairs separate by</text>
+  <text x="1026.5" y="2293.8" fill="#1f2328" text-anchor="middle">fresh context, not by family.</text>
+  <path d="M886 2322.4 H1167 a8 8 0 0 1 8 8 V2418.4 a8 8 0 0 1 -8 8 H886 a8 8 0 0 1 -8 -8 V2330.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1026.5" y="2350.8" fill="#1f2328" text-anchor="middle">Model unavailable: NO silent</text>
+  <text x="1026.5" y="2369.8" fill="#1f2328" text-anchor="middle">fallback. Stop, record, ask the</text>
+  <text x="1026.5" y="2388.8" fill="#1f2328" text-anchor="middle">human. Bad routing file: stop</text>
+  <text x="1026.5" y="2407.8" fill="#1f2328" text-anchor="middle">before dispatch.</text>
+  <path d="M1253 2089.4 H2001 a8 8 0 0 1 8 8 V2707.9 a8 8 0 0 1 -8 8 H1253 a8 8 0 0 1 -8 -8 V2097.4 a8 8 0 0 1 8 -8 Z" fill="#e8eefb" stroke="#2f5bb7"/>
+  <text x="1259" y="2117.8" fill="#1f2328" text-anchor="start">RELAY AND CALLBACKS: an event is a trigger, NOT completion</text>
+  <path d="M1267 2132.4 H1607 a8 8 0 0 1 8 8 V2228.4 a8 8 0 0 1 -8 8 H1267 a8 8 0 0 1 -8 -8 V2140.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1437" y="2160.8" fill="#1f2328" text-anchor="middle">Relay = plain watch-only script (no</text>
+  <text x="1437" y="2179.8" fill="#1f2328" text-anchor="middle">model, no tokens). Watches ONE agent;</text>
+  <text x="1437" y="2198.8" fill="#1f2328" text-anchor="middle">when it settled AND its report</text>
+  <text x="1437" y="2217.8" fill="#1f2328" text-anchor="middle">exists, it wakes the orchestrator</text>
+  <path d="M1267 2292.4 H1607 a8 8 0 0 1 8 8 V2350.4 a8 8 0 0 1 -8 8 H1267 a8 8 0 0 1 -8 -8 V2300.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1437" y="2320.8" fill="#1f2328" text-anchor="middle">RELAY_EVENT: settled | blocked | error.</text>
+  <text x="1437" y="2339.8" fill="#1f2328" text-anchor="middle">Deduplicated by task ID.</text>
+  <path d="M1267 2414.4 H1607 a8 8 0 0 1 8 8 V2491.4 a8 8 0 0 1 -8 8 H1267 a8 8 0 0 1 -8 -8 V2422.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1437" y="2442.8" fill="#1f2328" text-anchor="middle">Orchestrator VERIFIES: exact marker,</text>
+  <text x="1437" y="2461.8" fill="#1f2328" text-anchor="middle">complete report, baseline + scope,</text>
+  <text x="1437" y="2480.8" fill="#1f2328" text-anchor="middle">authorization, actual agent state</text>
+  <path d="M1267 2555.4 H1607 a8 8 0 0 1 8 8 V2594.4 a8 8 0 0 1 -8 8 H1267 a8 8 0 0 1 -8 -8 V2563.4 a8 8 0 0 1 8 -8 Z" fill="#e8f5ec" stroke="#2e7d4f"/>
+  <text x="1437" y="2583.8" fill="#1f2328" text-anchor="middle">idle or done = PROOF</text>
+  <path d="M1647 2545.9 H1987 a8 8 0 0 1 8 8 V2603.9 a8 8 0 0 1 -8 8 H1647 a8 8 0 0 1 -8 -8 V2553.9 a8 8 0 0 1 8 -8 Z" fill="#fdecec" stroke="#b3261e"/>
+  <text x="1817" y="2574.3" fill="#1f2328" text-anchor="middle">blocked, unknown, gone,</text>
+  <text x="1817" y="2593.3" fill="#1f2328" text-anchor="middle">or a local claim = NOT proof</text>
+  <path d="M1457 2635.9 H1797 a8 8 0 0 1 8 8 V2693.9 a8 8 0 0 1 -8 8 H1457 a8 8 0 0 1 -8 -8 V2643.9 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1627" y="2664.3" fill="#1f2328" text-anchor="middle">Decision-side agents call back directly</text>
+  <text x="1627" y="2683.3" fill="#1f2328" text-anchor="middle">with a marker (no --wait)</text>
+  <path d="M408.5 2771.9 H1640.5 a8 8 0 0 1 8 8 V2886.9 a8 8 0 0 1 -8 8 H408.5 a8 8 0 0 1 -8 -8 V2779.9 a8 8 0 0 1 8 -8 Z" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="414.5" y="2800.3" fill="#1f2328" text-anchor="start">LIGHTWEIGHT STATES (listed in source order; the documents give no transition table)</text>
+  <path d="M422.5 2814.9 H569.5 a8 8 0 0 1 8 8 V2872.9 a8 8 0 0 1 -8 8 H422.5 a8 8 0 0 1 -8 -8 V2822.9 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="496" y="2843.3" fill="#1f2328" text-anchor="middle">PLANNING</text>
+  <text x="496" y="2862.3" fill="#1f2328" text-anchor="middle">only when needed</text>
+  <path d="M609.5 2824.4 H663.5 a8 8 0 0 1 8 8 V2863.4 a8 8 0 0 1 -8 8 H609.5 a8 8 0 0 1 -8 -8 V2832.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="636.5" y="2852.8" fill="#1f2328" text-anchor="middle">READY</text>
+  <path d="M703.5 2824.4 H799.5 a8 8 0 0 1 8 8 V2863.4 a8 8 0 0 1 -8 8 H703.5 a8 8 0 0 1 -8 -8 V2832.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="751.5" y="2852.8" fill="#1f2328" text-anchor="middle">AUTHORIZED</text>
+  <path d="M839.5 2824.4 H952.5 a8 8 0 0 1 8 8 V2863.4 a8 8 0 0 1 -8 8 H839.5 a8 8 0 0 1 -8 -8 V2832.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="896" y="2852.8" fill="#1f2328" text-anchor="middle">IMPLEMENTING</text>
+  <path d="M992.5 2824.4 H1139.5 a8 8 0 0 1 8 8 V2863.4 a8 8 0 0 1 -8 8 H992.5 a8 8 0 0 1 -8 -8 V2832.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1066" y="2852.8" fill="#1f2328" text-anchor="middle">READY_FOR_REVIEW</text>
+  <path d="M1179.5 2824.4 H1267.5 a8 8 0 0 1 8 8 V2863.4 a8 8 0 0 1 -8 8 H1179.5 a8 8 0 0 1 -8 -8 V2832.4 a8 8 0 0 1 8 -8 Z" fill="#ffffff" stroke="#8a90a8"/>
+  <text x="1223.5" y="2852.8" fill="#1f2328" text-anchor="middle">REVIEWING</text>
+  <path d="M1307.5 2824.4 H1387.5 a8 8 0 0 1 8 8 V2863.4 a8 8 0 0 1 -8 8 H1307.5 a8 8 0 0 1 -8 -8 V2832.4 a8 8 0 0 1 8 -8 Z" fill="#e8f5ec" stroke="#2e7d4f"/>
+  <text x="1347.5" y="2852.8" fill="#1f2328" text-anchor="middle">ACCEPTED</text>
+  <path d="M1427.5 2824.4 H1498.5 a8 8 0 0 1 8 8 V2863.4 a8 8 0 0 1 -8 8 H1427.5 a8 8 0 0 1 -8 -8 V2832.4 a8 8 0 0 1 8 -8 Z" fill="#fdecec" stroke="#b3261e"/>
+  <text x="1463" y="2852.8" fill="#1f2328" text-anchor="middle">BLOCKED</text>
+  <path d="M1538.5 2824.4 H1626.5 a8 8 0 0 1 8 8 V2863.4 a8 8 0 0 1 -8 8 H1538.5 a8 8 0 0 1 -8 -8 V2832.4 a8 8 0 0 1 8 -8 Z" fill="#fdecec" stroke="#b3261e"/>
+  <text x="1582.5" y="2852.8" fill="#1f2328" text-anchor="middle">ESCALATED</text>
+  <path d="M 1028.5 566 C 1028.5 669.28, 1021.72 805.5, 1113.8 805.5 L 1125 805.5" fill="none" stroke="#2f5bb7" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-2f5bb7)"/>
+  <rect x="989.62" y="714.98" width="94" height="19" fill="#ffffff"/>
+  <text x="1036.62" y="729.38" fill="#2f5bb7" text-anchor="middle">classifies</text>
+  <path d="M 1125 821.5 C 985 821.5, 379 826, 379 954.8 L 379 966" fill="none" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <rect x="614.5" y="830.35" width="170" height="19" fill="#ffffff"/>
+  <text x="699.5" y="844.75" fill="#6b46c1" text-anchor="middle">unsettled questions</text>
+  <path d="M 1219 856 C 1219 900, 1219 922, 1219 954.8 L 1219 966" fill="none" stroke="#2e7d4f" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-2e7d4f)"/>
+  <rect x="1163.5" y="900.1" width="111" height="19" fill="#ffffff"/>
+  <text x="1219" y="914.5" fill="#2e7d4f" text-anchor="middle">settled work</text>
+  <path d="M 1313 813.5 C 1453 813.5, 1870 826, 1870 954.8 L 1870 966" fill="none" stroke="#1d7f8c" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-1d7f8c)"/>
+  <rect x="1546.5" y="826.35" width="195" height="19" fill="#ffffff"/>
+  <text x="1644" y="840.75" fill="#1d7f8c" text-anchor="middle">large one-off refactor</text>
+  <path d="M 527.5 1922.9 L 687.5 1922.9 C 759.15 1922.9, 759.15 1070.5, 830.8 1070.5 L 842 1070.5" fill="none" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <rect x="544.5" y="1913.4" width="246" height="19" fill="#ffffff"/>
+  <text x="667.5" y="1927.8" fill="#6b46c1" text-anchor="middle">settled spec feeds execution</text>
+  <line x1="202.5" y1="1113" x2="202.5" y2="1169" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <line x1="202.5" y1="1254" x2="202.5" y2="1310" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <line x1="202.5" y1="1395" x2="202.5" y2="1476.4" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <rect x="176.5" y="1426.2" width="52" height="19" fill="#ffffff"/>
+  <text x="202.5" y="1440.6" fill="#6b46c1" text-anchor="middle">major</text>
+  <line x1="298.12" y1="1395" x2="481.26" y2="1476.4" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <rect x="363.69" y="1426.2" width="52" height="19" fill="#ffffff"/>
+  <text x="389.69" y="1440.6" fill="#6b46c1" text-anchor="middle">minor</text>
+  <line x1="243.81" y1="1542.4" x2="313.91" y2="1598.4" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <line x1="514.19" y1="1542.4" x2="444.09" y2="1598.4" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <line x1="379" y1="1702.4" x2="379" y2="1758.4" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <line x1="379" y1="1824.4" x2="379" y2="1880.4" stroke="#6b46c1" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-6b46c1)"/>
+  <line x1="1003" y1="1113" x2="1003" y2="1169" stroke="#2e7d4f" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-2e7d4f)"/>
+  <line x1="1003" y1="1273" x2="1003" y2="1329" stroke="#2e7d4f" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-2e7d4f)"/>
+  <line x1="1003" y1="1414" x2="1003" y2="1470" stroke="#2e7d4f" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-2e7d4f)"/>
+  <line x1="1003" y1="1574" x2="1003" y2="1655.4" stroke="#2e7d4f" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-2e7d4f)"/>
+  <rect x="981" y="1605.2" width="44" height="19" fill="#ffffff"/>
+  <text x="1003" y="1619.6" fill="#2e7d4f" text-anchor="middle">PASS</text>
+  <path d="M 1164 1522 C 1208 1522, 1230 1522, 1262.8 1522 L 1274 1522" fill="none" stroke="#b83280" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-b83280)"/>
+  <rect x="1195.6" y="1512.5" width="44" height="19" fill="#ffffff"/>
+  <text x="1217.6" y="1526.9" fill="#b83280" text-anchor="middle">FAIL</text>
+  <path d="M 1435 1432 C 1435 1320.93, 1275.07 1371.5, 1175.2 1371.5 L 1164 1371.5" fill="none" stroke="#b83280" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-b83280)"/>
+  <rect x="1295.55" y="1350.6" width="94" height="19" fill="#ffffff"/>
+  <text x="1342.55" y="1365" fill="#b83280" text-anchor="middle">next cycle</text>
+  <line x1="1435" y1="1612" x2="1435" y2="1668" stroke="#b3261e" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-b3261e)"/>
+  <line x1="1870" y1="1151" x2="1870" y2="1207" stroke="#1d7f8c" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-1d7f8c)"/>
+  <line x1="1870" y1="1273" x2="1870" y2="1329" stroke="#1d7f8c" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-1d7f8c)"/>
+  <line x1="1870" y1="1395" x2="1870" y2="1451" stroke="#1d7f8c" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-1d7f8c)"/>
+  <line x1="1870" y1="1536" x2="1870" y2="1592" stroke="#1d7f8c" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-1d7f8c)"/>
+  <line x1="1870" y1="1658" x2="1870" y2="1714" stroke="#1d7f8c" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-1d7f8c)"/>
+  <line x1="1870" y1="1799" x2="1870" y2="1855" stroke="#1d7f8c" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-1d7f8c)"/>
+  <line x1="1437" y1="2236.4" x2="1437" y2="2292.4" stroke="#2f5bb7" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-2f5bb7)"/>
+  <line x1="1437" y1="2358.4" x2="1437" y2="2414.4" stroke="#2f5bb7" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-2f5bb7)"/>
+  <line x1="1437" y1="2499.4" x2="1437" y2="2555.4" stroke="#2f5bb7" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-2f5bb7)"/>
+  <line x1="1569.38" y1="2499.4" x2="1714.21" y2="2545.9" stroke="#b3261e" stroke-width="1.6" marker-end="url(#r13209a7e-arrow-b3261e)"/>
+</svg>

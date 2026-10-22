@@ -1,0 +1,135 @@
+// Orchestration workflows overview. Every node is sourced in workflows-overview.md
+diagram  theme: light
+
+style ctl     fill: #e8eefb  border: #2f5bb7  line: #2f5bb7
+style stop    fill: #fdecec  border: #b3261e
+style human   fill: #fff4dc  border: #b7791f  line: #b7791f
+style dec     fill: #f1ecfb  border: #6b46c1  line: #6b46c1
+style exe     fill: #e8f5ec  border: #2e7d4f  line: #2e7d4f
+style ref     fill: #e4f4f6  border: #1d7f8c  line: #1d7f8c
+style rev     fill: #fbe9f1  border: #b83280  line: #b83280
+style gate    fill: #fff4dc  border: #b7791f
+style plain   fill: #ffffff  border: theme-border
+style bad     fill: #fdecec  border: #b3261e  line: #b3261e
+style neutral fill: #f3f4f6  border: #6b7280  line: #6b7280
+style okc     fill: #e8f5ec  border: #2e7d4f
+style invisible  fill: none  border: none
+
+// ================= TITLE =================
+node title "How the orchestration workflows work" (size: 30)  shape: none
+node subtitle "One control plane delegates every edit, test, Git action and cluster action to workers; humans hold the gates." (wrap: 120)  shape: none  below title (gap: tight)
+
+// ================= TOP: control plane + human gates =================
+node orch "ORCHESTRATOR - the sole control plane"  style: ctl  below subtitle  contents: (widths: match, align: center)
+node orch.does "DOES: classify work; resolve / dependencies; assign agents; / gather evidence; mediate / corrections; report"  style: plain
+node orch.never "DOES NOT: edit the repo; run / tests; mutate Git; act on the / live cluster. All of that is / delegated to workers."  style: stop  gap: tight
+node orch.writes "Sole writer of .planning/ledger / and the tsk board. Accepts, / blocks or escalates; never turns / a worker into its own reviewer."  style: plain  gap: tight
+
+node gates "HUMAN GATES - explicit approval"  style: human  right of orch  top level with orch  contents: (widths: match, align: center)
+node gates.g1 "Repository edit: explicit / authorization before ANY edit"  style: gate
+node gates.g2 "Git, secrets, deployment, live / cluster: each needs its own / separate approval"  style: gate  gap: tight
+node gates.g3 "Network: none unless separately / authorized (research: per brief)"  style: gate  gap: tight
+node gates.g4 "Decisions: Interlocutor closes / only on explicit human confirm; / batch = approve, deny, amend"  style: gate  gap: tight
+node gates.g5 "Refactor: human authorizes scope / before edits; revision cycles / need a human in SHADOW mode"  style: gate  gap: tight
+
+// ================= CLASSIFY =================
+node classify "CLASSIFY first: are / requirements and / decisions settled?"  below orch and gates (gap: wide)  style: ctl
+edge orch -> classify "classifies"  from: bottom  to: left  style: ctl
+
+// ================= EXECUTION (centre) =================
+node wf_exe "EXECUTION WORKFLOW / settled work"  style: exe  below classify (gap: wide)  contents: (widths: match, align: center)
+node wf_exe.plan "Planner (conditional): partitions / the settled spec into / acceptance packages; advisory"  style: plain
+node wf_exe.brief "Direct or planner brief: objective, / boundaries, acceptance, / prohibitions, risk + reviewer / route, callbacks"  style: plain  below wf_exe.plan
+node wf_exe.impl "Implementation agent: fresh, one / bounded assignment; edits in / scope; never reviews itself"  style: plain  below wf_exe.brief
+node wf_exe.review "Independent Reviewer: fresh, / read-only, DIFFERENT model / family than the executor; / PASS or FAIL, never repairs"  style: rev  below wf_exe.impl
+node wf_exe.accept "PASS accepted by the / Orchestrator = package / complete; dependents unlock"  style: plain  below wf_exe.review
+node wf_exe.loop "BOUNDED REVISION LOOP / (correctable FAIL only): / evidence gate records a / reproduction; fresh implementer / fixes blocking findings; fresh / review. MAX 3 CYCLES. / SHADOW mode: human / authorizes each cycle"  style: rev  right of wf_exe.review (gap: wide)  level with wf_exe.review
+node wf_exe.esc "ESCALATE to the human: cap / reached, no progress, / disagreement, scope change, / newly exposed ambiguity, / irreversible step. Stop / reason recorded in ledger"  style: stop  below wf_exe.loop
+
+// ================= DECISION (left) =================
+node wf_dec "DECISION WORKFLOW / unresolved product or / architecture questions"  style: dec  left of wf_exe (gap: wide)  top level with wf_exe  contents: (widths: match, align: center)
+node wf_dec.pool "QUESTION POOL: / open questions enter"  style: plain
+node wf_dec.research "Research lane (human decides / per item): read-only / Researcher, one evidence brief"  style: plain  below wf_dec.pool
+node wf_dec.triage "Architect triages each item: / major or minor (human may / pull any item to major)"  style: plain  below wf_dec.research
+node wf_dec.major "MAJOR: fresh Interlocutor / discusses with the human"  style: plain  below wf_dec.triage
+node wf_dec.minor "MINOR: Decision Maker + / one fresh Critic, one pass"  style: plain  right of wf_dec.major  level with wf_dec.major
+node wf_dec.conf "Architect conformance check: / (a) consistent with specs / (b) correctly laned / (c) complete enough to integrate"  style: plain  below wf_dec.major and wf_dec.minor
+node wf_dec.batch "Batch: human approves, denies / or amends each minor item"  style: plain  below wf_dec.conf
+node wf_dec.out "Architect integrates (sole / writer): .planning/specs + / .planning/decisions"  style: plain  below wf_dec.batch
+
+// ================= REFACTORING (right) =================
+node wf_ref "REFACTORING WORKFLOW / large one-time refactor, / not feature-triggered. Reuses / execution roles, review, ledger / and correction loop"  style: ref  right of wf_exe (gap: wide)  top level with wf_exe  contents: (widths: match, align: center)
+node wf_ref.diag "1 Diagnose and scope / (refactor-analysis)"  style: plain
+node wf_ref.gate "2 Gate: anti-overengineering / may REJECT the plan"  style: plain  below wf_ref.diag
+node wf_ref.auth "3 Human authorizes refactor / scope (HIGH by default)"  style: gate  below wf_ref.gate
+node wf_ref.base "4 Capture baseline: commit, / git status, validation / battery, golden output"  style: plain  below wf_ref.auth
+node wf_ref.slice "5 Behavior-preserving slices; / safe-refactor per slice"  style: plain  below wf_ref.base
+node wf_ref.rev "6-7 Fresh reviewer per slice; / full battery green at / slice end"  style: rev  below wf_ref.slice
+node wf_ref.merge "8 PASS completes slice. / Merge-back = authorized Git / action by a worker, never / the Orchestrator"  style: gate  below wf_ref.rev
+
+edge classify -> wf_dec "unsettled questions"  from: left  to: top  style: dec
+edge classify -> wf_exe "settled work"  from: bottom  to: top  style: exe
+edge classify -> wf_ref "large one-off refactor"  from: right  to: top  style: ref
+edge wf_dec.out -> wf_exe.plan "settled spec feeds execution"  from: right  to: left  style: dec
+
+edge wf_dec.pool -> wf_dec.research  style: dec
+edge wf_dec.research -> wf_dec.triage  style: dec
+edge wf_dec.triage -> wf_dec.major "major" style: dec
+edge wf_dec.triage -> wf_dec.minor "minor" style: dec
+edge wf_dec.major -> wf_dec.conf  style: dec
+edge wf_dec.minor -> wf_dec.conf  style: dec
+edge wf_dec.conf -> wf_dec.batch  style: dec
+edge wf_dec.batch -> wf_dec.out  style: dec
+edge wf_exe.plan -> wf_exe.brief  style: exe
+edge wf_exe.brief -> wf_exe.impl  style: exe
+edge wf_exe.impl -> wf_exe.review  style: exe
+edge wf_exe.review -> wf_exe.accept "PASS"  style: exe
+edge wf_exe.review -> wf_exe.loop "FAIL"  from: right  to: left  style: rev
+edge wf_exe.loop -> wf_exe.impl "next cycle"  from: top  to: right  style: rev
+edge wf_exe.loop -> wf_exe.esc  style: bad
+edge wf_ref.diag -> wf_ref.gate  style: ref
+edge wf_ref.gate -> wf_ref.auth  style: ref
+edge wf_ref.auth -> wf_ref.base  style: ref
+edge wf_ref.base -> wf_ref.slice  style: ref
+edge wf_ref.slice -> wf_ref.rev  style: ref
+edge wf_ref.rev -> wf_ref.merge  style: ref
+
+// ================= BOTTOM BAND =================
+node roles "ROLES (assignments live in orchestrator-routing.yaml: / replaceable data, not workflow rules)"  style: neutral  below wf_dec and wf_exe (gap: wide)  left level with wf_dec  contents: (widths: match, align: center)
+node roles.exe "Execution side"  style: plain  contents: (widths: match, align: left)
+node roles.exe.p "planning: Planner, advisory only"  style: neutral
+node roles.exe.i "implementation: Executor, the only / role that edits code"  style: neutral  gap: tight
+node roles.exe.r "reviewer: fresh Independent / Reviewer, read-only"  style: neutral  gap: tight
+node roles.dec "Decision side"  style: plain  right of roles.exe  top level with roles.exe  contents: (widths: match, align: left)
+node roles.dec.a "architect: triage, conformance, / sole writer of specs + log"  style: neutral
+node roles.dec.i "interlocutor: discusses major / items with the human"  style: neutral  gap: tight
+node roles.dec.d "deliberation: Decision Maker + / Critic, one shared assignment"  style: neutral  gap: tight
+node roles.dec.s "research: read-only Researcher, / one evidence brief per item"  style: neutral  gap: tight
+
+node indep "INDEPENDENCE RULES"  style: rev  right of roles  top level with roles  contents: (widths: match, align: left)
+node indep.a "Reviewer = FRESH agent from a / DIFFERENT model family than the / executor, never its exact model. / Verified at every dispatch."  style: plain
+node indep.b "Decision-side pairs separate by / fresh context, not by family."  style: plain  gap: tight
+node indep.c "Model unavailable: NO silent / fallback. Stop, record, ask the / human. Bad routing file: stop / before dispatch."  style: plain  gap: tight
+
+node relay "RELAY AND CALLBACKS: an event is a trigger, NOT completion"  style: ctl  right of indep  top level with roles  contents: (widths: match, align: center)
+node relay.a "Relay = plain watch-only script (no / model, no tokens). Watches ONE agent; / when it settled AND its report / exists, it wakes the orchestrator"  style: plain
+node relay.b "RELAY_EVENT: settled | blocked | error. / Deduplicated by task ID."  style: plain  below relay.a
+node relay.c "Orchestrator VERIFIES: exact marker, / complete report, baseline + scope, / authorization, actual agent state"  style: plain  below relay.b
+node relay.ok "idle or done = PROOF"  style: okc  below relay.c
+node relay.no "blocked, unknown, gone, / or a local claim = NOT proof"  style: stop  right of relay.ok  level with relay.ok  gap: tight
+node relay.d "Decision-side agents call back directly / with a marker (no --wait)"  style: plain  below relay.ok and relay.no  gap: tight
+edge relay.a -> relay.b  style: ctl
+edge relay.b -> relay.c  style: ctl
+edge relay.c -> relay.ok  style: ctl
+edge relay.c -> relay.no  style: bad
+
+node states "LIGHTWEIGHT STATES (listed in source order; the documents give no transition table)"  style: neutral  below roles and indep and relay  contents: (widths: natural, align: left)
+node states.s1 "PLANNING / only when needed"  style: plain
+node states.s2 "READY"  style: plain  right of states.s1  level with states.s1  gap: tight
+node states.s3 "AUTHORIZED"  style: plain  right of states.s2  level with states.s1  gap: tight
+node states.s4 "IMPLEMENTING"  style: plain  right of states.s3  level with states.s1  gap: tight
+node states.s5 "READY_FOR_REVIEW"  style: plain  right of states.s4  level with states.s1  gap: tight
+node states.s6 "REVIEWING"  style: plain  right of states.s5  level with states.s1  gap: tight
+node states.s7 "ACCEPTED"  style: okc  right of states.s6  level with states.s1  gap: tight
+node states.s8 "BLOCKED"  style: stop  right of states.s7  level with states.s1  gap: tight
+node states.s9 "ESCALATED"  style: stop  right of states.s8  level with states.s1  gap: tight
