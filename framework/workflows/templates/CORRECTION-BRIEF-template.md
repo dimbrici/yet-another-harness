@@ -1,6 +1,6 @@
 # CORRECTION-BRIEF template (Orchestrator-filled, no new content)
 
-The deliberate exception to "the planner authors every brief": corrections reuse already-approved text. The Orchestrator fills this fixed template by linking existing artifacts only — it writes no new instructions, no findings content, no scope. Any correction needing new content is a design/scope change and escalates per the revision loop (EXECUTION_WORKFLOW step 9), not a correction brief.
+Authorship and the links-only correction exception are defined in `.planning/orch/workflows/EXECUTION_WORKFLOW.md`, Briefs. Corrections reuse already-approved text from Planner-authored or direct briefs. The Orchestrator fills this fixed template by linking existing artifacts only — it writes no new instructions, no findings content, no scope. Defective direct briefs follow that section's defect path, not this template. Any correction needing new content is a design/scope change and escalates per the revision loop (EXECUTION_WORKFLOW step 9), not a correction brief.
 
 ## C1 — For the executor (revision cycle)
 - Package/lane id.

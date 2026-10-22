@@ -1,6 +1,6 @@
-# TASK-BRIEF template (planner → executor, via Orchestrator gate)
+# TASK-BRIEF template (Planner-authored or direct → Executor)
 
-Target size: ~60 lines. The planner fills each section per `BRIEF_RULES.md`; the Orchestrator gate checks, never rewrites.
+Target size: ~60 lines. Fill each section per `BRIEF_RULES.md`. Authorship, the gate and self-check, and defective-direct-brief handling follow `.planning/orch/workflows/EXECUTION_WORKFLOW.md`, Briefs.
 
 ## T1 — Objective
 - Package id, one-paragraph objective, settled behavior with spec/decision pointers.

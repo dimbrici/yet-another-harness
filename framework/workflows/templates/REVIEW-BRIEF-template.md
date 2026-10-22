@@ -1,6 +1,6 @@
-# REVIEW-BRIEF template (planner → reviewer, via Orchestrator gate)
+# REVIEW-BRIEF template (Planner-authored or direct → Reviewer)
 
-Short, package-specific. The reviewer's standing rules — output criteria, finding classes, report sections, skill modes — live in `.planning/orch/agents/REVIEWER_AGENT.md`; this brief carries only the package variables. Written per `.planning/orch/workflows/templates/BRIEF_RULES.md`.
+Short, package-specific. The reviewer's standing rules — output criteria, finding classes, report sections, skill modes — live in `.planning/orch/agents/REVIEWER_AGENT.md`; this brief carries only the package variables. Written per `.planning/orch/workflows/templates/BRIEF_RULES.md`. Authorship, the gate and self-check, and defective-direct-brief handling follow `.planning/orch/workflows/EXECUTION_WORKFLOW.md`, Briefs.
 
 ## R1 — Package identity
 - Package/lane id.

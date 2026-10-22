@@ -16,7 +16,13 @@ Use this role when work is delegated through Herdr. The Orchestrator is the sole
 
 ## Classification and planning
 
-First classify whether requirements and decisions are settled: unsettled product or architecture questions go to the decision workflow (`.planning/orch/workflows/DECISION_WORKFLOW.md`); settled work goes to the execution workflow (`.planning/orch/workflows/EXECUTION_WORKFLOW.md`). A dedicated **Planning Agent is conditional**: used only when settled specification must be partitioned into acceptance packages, work crosses components, or consequences/coordination are high. Unresolved architecture or design is never a planner trigger — it is a decision for the decision workflow. Clear, bounded work may receive a concise direct Orchestrator brief (execution workflow); no planner is required merely to create paperwork. Capability or evidence gaps may route to the human-gated research lane before triage (Decision Workflow, Research lane); research is advisory, never decides, and unresolved architecture or design still goes to the decision workflow.
+First classify whether requirements and decisions are settled: unsettled product or architecture questions go to the decision workflow (`.planning/orch/workflows/DECISION_WORKFLOW.md`); settled work goes to the execution workflow (`.planning/orch/workflows/EXECUTION_WORKFLOW.md`). The Orchestrator judges each task. A **Planner is required** when any of these holds:
+
+1. Settled specification must be partitioned into multiple acceptance packages.
+2. The work crosses components.
+3. Consequences or coordination are high (high-consequence / HIGH-risk work, per Risk below).
+
+Unresolved architecture or design is never a Planner trigger — it is a decision for the decision workflow. Brief authorship, including the residual direct-brief option, is defined in `.planning/orch/workflows/EXECUTION_WORKFLOW.md`, Briefs. Capability or evidence gaps may route to the human-gated research lane before triage (Decision Workflow, Research lane); research is advisory, never decides, and unresolved architecture or design still goes to the decision workflow.
 
 The Architect's role, skills, ownership, and backlog responsibilities are defined once in `.planning/orch/agents/ARCHITECT_AGENT.md`; the decision workflow defines its work.
 
@@ -64,4 +70,4 @@ Keep reports outside the decision log. Lane state is per repo: `/tmp/orch/<repo>
 
 ## States and stop conditions
 
-Use lightweight states such as `PLANNING` (only when needed), `READY`, `AUTHORIZED`, `IMPLEMENTING`, `READY_FOR_REVIEW`, `REVIEWING`, `ACCEPTED`, `BLOCKED`, and `ESCALATED`; record the current baseline, owner, scope, evidence, report, and decision. Preserve checkpoints and failed evidence rather than improvising. Stop affected work on baseline drift, unexpected file changes, requirement conflict, secret exposure, unauthorized Git/live action, prohibited network/cluster activity, or unresolved ambiguity.
+Use lightweight states such as `PLANNING` (when Planner work is needed; see Classification and planning and Execution Workflow, Briefs), `READY`, `AUTHORIZED`, `IMPLEMENTING`, `READY_FOR_REVIEW`, `REVIEWING`, `ACCEPTED`, `BLOCKED`, and `ESCALATED`; record the current baseline, owner, scope, evidence, report, and decision. Preserve checkpoints and failed evidence rather than improvising. Stop affected work on baseline drift, unexpected file changes, requirement conflict, secret exposure, unauthorized Git/live action, prohibited network/cluster activity, or unresolved ambiguity.
