@@ -1,6 +1,6 @@
 # BRIEF_RULES — how to write execution and review briefs
 
-This document defines task-brief and review-brief construction once, for the planner who authors them and the Orchestrator gate that checks them. It is policy: changes need human approval plus independent review. The "Task brief" and "Review brief" sections below are each marked; the task-brief rules also govern correction briefs for the executor (inheritance below). The planner brief (Orchestrator → planner) is not governed here; it keeps its own short forbidden lines in its template `.planning/orch/workflows/templates/PLANNER-BRIEF-template.md`.
+This document is the single construction checklist for task and review briefs, whether Planner-authored or direct. Authorship, the gate and self-check, and defective-direct-brief handling live in `.planning/orch/workflows/EXECUTION_WORKFLOW.md`, Briefs. It is policy: changes need human approval plus independent review. The "Task brief" and "Review brief" sections below are each marked; the task-brief rules also govern correction briefs for the executor (inheritance below). The planner brief (Orchestrator → planner) is not governed here; it keeps its own short forbidden lines in its template `.planning/orch/workflows/templates/PLANNER-BRIEF-template.md`.
 
 ## Task brief — required items
 
@@ -37,4 +37,4 @@ Package id; branch + base (never a commit hash); diff range; declared/owned vs p
 
 ## Gate behavior
 
-The Orchestrator gate checks briefs against this document only. It passes or rejects back to the planner with a reason. It never rewrites a brief and never authors one.
+Both authorship paths use this checklist. Apply `.planning/orch/workflows/EXECUTION_WORKFLOW.md`, Briefs, for the Planner-authored gate, the direct-brief self-check, and the defective-direct-brief path. That section owns the behavior; this document adds no checklist or gate.

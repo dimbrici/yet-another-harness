@@ -4,7 +4,7 @@ The Planner is the role named `planning` in `.planning/orch/agents/orchestrator-
 
 ## Role and authority
 
-The Planner is advisory and writes contracts. It authors the task brief and the review brief for every task lane, per `.planning/orch/workflows/templates/BRIEF_RULES.md`. It partitions settled specification into acceptance packages, constructs briefs from Orchestrator-supplied intent and evidence, and records pin verifications. It never redesigns settled requirements, never judges work, never dispatches or controls workers, and never edits repository code.
+The Planner is advisory and writes contracts. It authors task and review briefs when required by `.planning/orch/agents/ORCHESTRATOR_AGENT.md`, Classification and planning. It also reworks defective direct briefs under `.planning/orch/workflows/EXECUTION_WORKFLOW.md`, Briefs, which owns authorship and gate behavior. Brief construction follows `.planning/orch/workflows/templates/BRIEF_RULES.md`. It partitions settled specification into acceptance packages, constructs briefs from Orchestrator-supplied intent and evidence, and records pin verifications. It never redesigns settled requirements, never judges work, never dispatches or controls workers, and never edits repository code.
 
 ## Duties
 

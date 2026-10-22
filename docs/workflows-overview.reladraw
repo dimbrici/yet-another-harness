@@ -38,8 +38,11 @@ edge orch -> classify "classifies"  from: bottom  to: left  style: ctl
 
 // ================= EXECUTION (centre) =================
 node wf_exe "EXECUTION WORKFLOW / settled work"  style: exe  below classify (gap: wide)  contents: (widths: match, align: center)
-node wf_exe.plan "Planner (conditional): partitions / the settled spec into / acceptance packages; advisory"  style: plain
-node wf_exe.brief "Direct or planner brief: objective, / boundaries, acceptance, / prohibitions, risk + reviewer / route, callbacks"  style: plain  below wf_exe.plan
+node wf_exe.plan "Brief path: see ORCH / Classification and planning. / Planner triggers outrank / short duration or small effort"  style: plain
+node wf_exe.planner "Planner required by triggers: / advisory; partitions settled / spec; authors task + review briefs"  style: plain  below wf_exe.plan
+node wf_exe.direct "Residual case only: Orchestrator / MAY author direct task + review / briefs; no mandatory Planner"  style: plain  right of wf_exe.planner  level with wf_exe.planner
+node wf_exe.brief "BRIEF_RULES: one checklist / Planner-authored: ORCH gate / Direct: pre-dispatch self-check / See EXEC Briefs"  style: plain  below wf_exe.planner and wf_exe.direct
+node wf_exe.defect "Direct brief deficient AFTER / self-check: no in-place patch. / Executor, Reviewer or ORCH / discovery -> Planner rework; / ORCH records wrong call; / reworked brief passes ORCH gate. / NOT a correction cycle / See EXEC Briefs"  style: plain  right of wf_exe.brief  level with wf_exe.brief
 node wf_exe.impl "Implementation agent: fresh, one / bounded assignment; edits in / scope; never reviews itself"  style: plain  below wf_exe.brief
 node wf_exe.review "Independent Reviewer: fresh, / read-only, DIFFERENT model / family than the executor; / PASS or FAIL, never repairs"  style: rev  below wf_exe.impl
 node wf_exe.accept "PASS accepted by the / Orchestrator = package / complete; dependents unlock"  style: plain  below wf_exe.review
@@ -80,8 +83,13 @@ edge wf_dec.major -> wf_dec.conf  style: dec
 edge wf_dec.minor -> wf_dec.conf  style: dec
 edge wf_dec.conf -> wf_dec.batch  style: dec
 edge wf_dec.batch -> wf_dec.out  style: dec
-edge wf_exe.plan -> wf_exe.brief  style: exe
-edge wf_exe.brief -> wf_exe.impl  style: exe
+edge wf_exe.plan -> wf_exe.planner "trigger holds"  style: exe
+edge wf_exe.plan -> wf_exe.direct "no trigger"  style: exe
+edge wf_exe.planner -> wf_exe.brief  style: exe
+edge wf_exe.direct -> wf_exe.brief  style: exe
+edge wf_exe.brief -> wf_exe.defect "later brief defect"  style: bad
+edge wf_exe.defect -> wf_exe.planner "rework + gate"  from: top  to: right  style: exe
+edge wf_exe.brief -> wf_exe.impl "checklist passes"  style: exe
 edge wf_exe.impl -> wf_exe.review  style: exe
 edge wf_exe.review -> wf_exe.accept "PASS"  style: exe
 edge wf_exe.review -> wf_exe.loop "FAIL"  from: right  to: left  style: rev
@@ -124,7 +132,7 @@ edge relay.c -> relay.ok  style: ctl
 edge relay.c -> relay.no  style: bad
 
 node states "LIGHTWEIGHT STATES (listed in source order; the documents give no transition table)"  style: neutral  below roles and indep and relay  contents: (widths: natural, align: left)
-node states.s1 "PLANNING / only when needed"  style: plain
+node states.s1 "PLANNING / when Planner work is needed / see ORCH + EXEC Briefs"  style: plain
 node states.s2 "READY"  style: plain  right of states.s1  level with states.s1  gap: tight
 node states.s3 "AUTHORIZED"  style: plain  right of states.s2  level with states.s1  gap: tight
 node states.s4 "IMPLEMENTING"  style: plain  right of states.s3  level with states.s1  gap: tight
