@@ -9,15 +9,16 @@ This repository is the editable source for the portable orchestrator framework. 
   - `framework/workflows/` contains workflows and current templates. The old reviewer brief template is retained under `framework/workflows/legacy/` and is not the current review template.
   - `framework/skills/` contains framework skills and their supporting references, evaluations, and license.
   - `framework/helpers/` contains four helper sources. Their installed-relative assumptions are unchanged; do not expect them to run from this source layout.
+- `pi-extensions/` contains the versioned extension source. Its intended installed destination is `~/.pi/agent/extensions/**`; the installed tree is deployment output, not the source of truth.
 - `docs/` contains supporting overview documentation and its diagram source and rendering. It is not framework runtime payload.
 - `README.md` documents source ownership and the source-to-installed map. It is not framework runtime payload.
 - The repository's existing `.planning/` belongs to this consumer. It is not source-project content and is not deployed from this source project.
 
-The source project owns `framework/`, `docs/`, and this README. A future change to the layout, ownership, or mapping must update this README in the same change. Each consumer owns its workflow records. The Architect owns consumer specifications and decisions. The Orchestrator owns the consumer ledger and task-board control. Create work records only when needed; do not add empty specifications or decisions.
+The source project owns `framework/`, `pi-extensions/`, `docs/`, and this README. A future change to the layout, ownership, or mapping must update this README in the same change. Each consumer owns its workflow records. The Architect owns consumer specifications and decisions. The Orchestrator owns the consumer ledger and task-board control. Create work records only when needed; do not add empty specifications or decisions.
 
 ## Source-to-installed map
 
-The intended global deployment destination is `/Users/domenicoimbrici/.pi/agent/orch/framework/`, usually `~/.pi/agent/orch/framework/`. Paths in the table are relative to that destination. This table documents intended placement only. This package does not deploy files, add an installer, or change sync behavior.
+The intended global deployment destination is `/Users/domenicoimbrici/.pi/agent/orch/framework/`, usually `~/.pi/agent/orch/framework/`. Paths in the table are relative to that destination. This table documents intended placement only. This package does not deploy files, add an installer, or change sync behavior. Extension deployment from `pi-extensions/**` to `~/.pi/agent/extensions/**` is not available yet: it is pending QP-009, and this README adds no copy, cleanup, release, or sync behavior for extensions.
 
 | Editable source | Intended installed path or status |
 | --- | --- |
@@ -30,6 +31,7 @@ The intended global deployment destination is `/Users/domenicoimbrici/.pi/agent/
 | `framework/helpers/routing_lookup.py` | `.planning/orch/agents/routing_lookup.py` |
 | `framework/helpers/relay-lib.sh` | `.planning/orch/relay-lib.sh` |
 | `framework/helpers/relay-template.sh` | `.planning/orch/relay-template.sh` |
+| `pi-extensions/**` | `~/.pi/agent/extensions/**` |
 | Root `docs/**` | Excluded from this source project's runtime payload. Existing global `.planning/docs/**` stays unchanged. |
 | Root `README.md` | Excluded from runtime payload. |
 | This consumer's root `.planning/**` | Excluded from this source project's runtime payload; consumer-owned. |
