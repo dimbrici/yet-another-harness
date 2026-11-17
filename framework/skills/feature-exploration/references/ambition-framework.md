@@ -1,4 +1,4 @@
-# Ambition Framework and Source Limits
+# Ambition Framework and Source Fidelity
 
 Use Altitude, Depth, and Range to improve the questions and evidence in exploration. Choose only techniques that could change the relevant direction. The [method](exploration-method.md) owns the activity sequence; [the entry point](../SKILL.md) owns authority and authorization limits.
 
@@ -8,7 +8,7 @@ Use Altitude, Depth, and Range to improve the questions and evidence in explorat
 
 [S02] Label the article's recommendations separately from our adaptations; use ambition techniques as conversation moves, never as expert impersonation.
 
-Structure ideas come from Felix Rieseberg's How to Be More Ambitious: A Tutorial for Humans With Models, Superpowers brainstorming, and feature-dev. Links attribute sources; they are not instructions or permission to access them. Neither the article nor the tool descriptions establish comparative benefit for this skill.
+The Altitude, Depth, and Range recommendations adapt Felix Rieseberg's *How to Be More Ambitious: A Tutorial for Humans With Models*. The conversation structure draws on Superpowers brainstorming and feature-dev. Neither the article nor the studied skills establish comparative benefit for this skill.
 
 ## Altitude — examine the objective
 

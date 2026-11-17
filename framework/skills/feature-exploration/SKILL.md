@@ -19,7 +19,7 @@ Read the assignment and available evidence first. Check the desired outcome, nov
 
 These are paths through available activities, not mandatory rounds. Revisit only what new evidence or feedback makes relevant.
 
-Explicitly load [the exploration method](references/exploration-method.md) when exploration is needed. Load [the ambition reference](references/ambition-framework.md) when challenging the framing, selecting deeper or adjacent methods, or checking source limits. Load [the feature brief template](templates/feature-brief.md) before writing a pending report or confirmed-direction handoff. These relative paths work in both the source and installed skill layouts.
+Explicitly load [the exploration method](references/exploration-method.md) when exploration is needed. Load [the ambition reference](references/ambition-framework.md) when challenging the framing, selecting deeper or adjacent methods, or checking source fidelity rules. Load [the feature brief template](templates/feature-brief.md) before writing a pending report or confirmed-direction handoff. These relative paths work in both the source and installed skill layouts.
 
 For a nontrivial proposed direction, explicitly load the read-only [anti-overengineering gate](../anti-overengineering/SKILL.md). Use its assessment only, not its implementation handoff. Assess current needs for extensibility, modularity, readability, composability, and design correctness. A present boundary can justify structure; a hypothetical future cannot.
 

@@ -60,7 +60,7 @@ For a proposed bounded experiment, name its question, minimal read/data set, exp
 
 Use Range only when an adjacent discipline offers a useful method. Name the discipline, the method, the uncertainty it addresses, and why that method fits. For example, database transaction analysis can expose unsafe concurrent state updates; HCI task analysis can expose a mismatch between workflow settings and user tasks.
 
-Apply the method to actual evidence. Drop it if it adds no decision-relevant insight. Use [the ambition reference](ambition-framework.md) for other examples and source limits, not as a requirement to consult every discipline.
+Apply the method to actual evidence. Drop it if it adds no decision-relevant insight. Use [the ambition reference](ambition-framework.md) for other examples and source fidelity rules, not as a requirement to consult every discipline.
 
 **Output:** a relevant new insight or testable hypothesis, with the method and reason; otherwise omit this activity's report detail.
 
