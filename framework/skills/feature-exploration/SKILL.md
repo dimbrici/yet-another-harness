@@ -2,7 +2,7 @@
 name: feature-exploration
 description: Advisory exploration for a vague or consequential feature request before the Question Pool. Use when the desired outcome, current behavior, assumptions, or feasible directions need investigation and human discussion; skip full exploration for settled requirements, trivial changes, and routine fixes.
 metadata:
-  read-only: true
+  read-only: true # Repository read-only; only the assigned external report is writable.
 ---
 
 # Feature Exploration
@@ -13,7 +13,7 @@ Turn an initial request into a human-confirmed direction and unresolved decision
 
 Read the assignment and available evidence first. Check the desired outcome, novelty, ambiguity, architectural impact, risk, evidence, user feedback, and alternative complexity. Choose the smallest useful pass:
 
-- **Light:** understand → inspect → recommend, for a small, well-grounded request. Skip exploration entirely if nothing relevant remains open.
+- **Light:** understand → inspect → recommend, for a small, well-grounded request; its recommendation stays pending unless the human explicitly confirms it. Skip exploration entirely if nothing relevant remains open.
 - **Moderate:** understand → inspect → compare alternatives → confirm, when a few meaningful choices remain.
 - **Complex:** understand → investigate → Altitude/Depth/Range as useful → develop alternatives → gather further evidence → confirm, for consequential uncertainty.
 

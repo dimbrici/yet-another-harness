@@ -4,7 +4,7 @@ Use this method under the boundaries in [the entry point](../SKILL.md). The nine
 
 ## Effort and evidence
 
-Select effort by ambiguity, novelty, architectural impact, risk, available evidence, user feedback, and alternative complexity. A familiar filter option may need one behavior trace and a recommendation. A bounded choice between existing patterns may need a moderate comparison. A configurable workflow with uncertain state or persistence boundaries may justify deeper investigation. These examples describe proportionality, not validation results.
+Select effort with [the entry point's effort guidance](../SKILL.md#entry-and-loading). A familiar filter option may need one behavior trace and a recommendation. A bounded choice between existing patterns may need a moderate comparison. A configurable workflow with uncertain state or persistence boundaries may justify deeper investigation. These examples describe proportionality, not validation results.
 
 [E05] Skip exploration or use a light pass for a well-grounded request; stay out of task-brief construction and tool hardening.
 
@@ -25,6 +25,8 @@ Ask the highest-value missing question in the user's terms. Explain what its ans
 ## 2. Investigate
 
 Start with existing repository read/search tools within the authorized set. Find the relevant entry points and trace behavior, data transformations, state changes, and outputs as needed. Read the important files themselves rather than relying on search hits or another summary.
+
+Serena and similar tools are optional, not adopted or required; setup suitability and practical benefit remain uncertain.
 
 [E03] Inventory the relevant in-scope items by reading them, including who owns or generates each item.
 
