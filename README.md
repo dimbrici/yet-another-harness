@@ -1,26 +1,71 @@
 # Orchestrator workflow source
 
-This repository is the editable source for the portable orchestrator framework. It separates framework source from supporting documentation and from each consuming repository's workflow state. This layout does not deploy or activate the framework.
+This repository contains the editable sources for a coding-agent coordination harness: role instructions, three workflows, skills, helpers, and Pi extensions.
+It is for people who already use coding agents and want to understand how several agents share work and evidence.
+The Orchestrator assigns work and checks its outcome; workers implement, investigate, or review within stated boundaries.
+The rules separate proposing, editing, reviewing, and approving so that no agent approves its own work.
+They define permission boundaries and evidence duties, not a guarantee of correct or safe results.
 
-## Layout and ownership
+Read [how it works](docs/how-it-works.md) for procedures and the [glossary](docs/glossary.md) for terms.
+The [workflow overview](docs/workflows-overview.svg) provides a high-level picture; the detailed workflow sources define the rules.
 
-- `framework/` contains the portable framework source. It has no nested `.planning/` wrapper.
-  - `framework/agents/` contains role and routing documents.
-  - `framework/workflows/` contains workflows and current templates. The old reviewer brief template is retained under `framework/workflows/legacy/` and is not the current review template.
-  - `framework/skills/` contains framework skills and their supporting references, evaluations, and license.
-  - `framework/helpers/` contains four helper sources. Their installed-relative assumptions are unchanged; do not expect them to run from this source layout.
-- `pi-extensions/` contains the versioned extension source. Its intended installed destination is `~/.pi/agent/extensions/**`; the installed tree is deployment output, not the source of truth.
-- `docs/` contains supporting overview documentation and its diagram source and rendering. It is not framework runtime payload.
-- `README.md` documents source ownership and the source-to-installed map. It is not framework runtime payload.
-- The repository's existing `.planning/` belongs to this consumer. It is not source-project content and is not deployed from this source project.
+## A one-minute example
 
-The source project owns `framework/`, `pi-extensions/`, `docs/`, and this README. A future change to the layout, ownership, or mapping must update this README in the same change. Each consumer owns its workflow records. The Architect owns consumer specifications and decisions. The Orchestrator owns the consumer ledger and task-board control. Create work records only when needed; do not add empty specifications or decisions.
+Suppose a person requests a small change to an error message, with the intended wording already settled.
+The Orchestrator checks scope, permissions, and whether planning is required.
+For clear, bounded work without a Planner trigger, it may write the task and review briefs directly.
+An authorized Executor edits only the named files in its own Git branch and worktree, then supplies a commit and evidence report.
+A fresh Independent Reviewer checks the committed work without repairing it.
+The Orchestrator verifies the report and worker state before accepting, blocking, or escalating the package.
+Acceptance does not merge the change: integration requires its own recorded Git authorization and an assigned worker.
+An unsettled wording or product question instead enters the Decision Workflow.
+
+## Requirements and present limits
+
+The described automated execution path needs separately configured Pi, Herdr, an available assigned model service, and installed framework documents, helpers, and extensions.
+Its helpers and extensions need Bash, Python 3 with PyYAML, and the Node.js runtime used by Pi.
+Git supports the required isolated branches, worktrees, and commits.
+Extension entry files must stay beside their library files when installed.
+
+The Orchestrator owns the local `tsk` task board as well as the ledger.
+Dispatch accepts an optional board-task association; this does not establish a separately supported board-free operating mode.
+The optional web-search extension needs a local SearXNG service; it is not required for offline coordination.
+Network use still needs separate authorization.
+
+You can inspect the roles, workflow rules, helper sources, and extension mechanisms in this checkout.
+This layout does not install, activate, deploy, or synchronize itself.
+No installer for this source layout is provided, and automated extension deployment is not available here.
+Existing sync tooling expects the deployed global layout, not this source layout.
+Some extension checks depend on a local Pi loader; their presence does not establish portable validation or runtime readiness.
+Source files, installed copies, and already loaded extensions can differ.
+
+The tree also includes an advisory [feature exploration skill](framework/skills/feature-exploration/SKILL.md).
+No published role or workflow currently invokes that separate skill, and its pre-pool conversation role remains unresolved.
+Its publication does not activate a fourth workflow or grant implementation authority.
+
+## Repository tour and ownership
+
+- Source `framework/agents/` contains role instructions and replaceable routing assignments.
+- Source `framework/workflows/` contains the three workflow rules, current templates, and a historical template.
+- Source `framework/skills/` contains skills with supporting references, evaluations, and license material.
+- Source `framework/helpers/` contains four helper sources with installed-layout assumptions, not a source-layout launch command.
+- Source `pi-extensions/` contains versioned extensions; source `pi-extensions/lib/` contains their supporting library files. Installed copies are deployment output, not the source of truth.
+- Source `docs/` contains supporting documentation, including the overview diagram's source and rendering.
+- Source `README.md` is this entry point and the owner of the placement map below.
+
+This source project owns `framework/`, `pi-extensions/`, `docs/`, and `README.md`. The framework source does not sit inside a consumer planning directory.
+The existing consumer `.planning/` directory belongs to that consuming repository, not to the portable source payload.
+Each consumer owns its workflow records; the Architect owns specifications and decisions, while the Orchestrator owns ledger and board control.
+Records are created when needed, not as empty specification or decision placeholders.
 
 ## Source-to-installed map
 
-The intended global deployment destination is `/Users/domenicoimbrici/.pi/agent/orch/framework/`, usually `~/.pi/agent/orch/framework/`. Paths in the table are relative to that destination. This table documents intended placement only. This package does not deploy files, add an installer, or change sync behavior. Extension deployment from `pi-extensions/**` to `~/.pi/agent/extensions/**` is not available yet: it is pending QP-009, and this README adds no copy, cleanup, release, or sync behavior for extensions.
+The intended installed framework root is `~/.pi/agent/orch/framework/`.
+Unless shown with a home prefix, installed destinations below are relative to that root, not to this checkout.
+Extensions have a separate intended installed root, `~/.pi/agent/extensions/**`.
+This table describes intended placement, not an installer or a copy, cleanup, release, or sync action.
 
-| Editable source | Intended installed path or status |
+| Editable source or consumer location | Intended installed path or status |
 | --- | --- |
 | `framework/agents/**` | `.planning/orch/agents/**` |
 | `framework/workflows/*.md` | `.planning/orch/workflows/*.md` |
@@ -32,20 +77,25 @@ The intended global deployment destination is `/Users/domenicoimbrici/.pi/agent/
 | `framework/helpers/relay-lib.sh` | `.planning/orch/relay-lib.sh` |
 | `framework/helpers/relay-template.sh` | `.planning/orch/relay-template.sh` |
 | `pi-extensions/**` | `~/.pi/agent/extensions/**` |
-| Root `docs/**` | Excluded from this source project's runtime payload. Existing global `.planning/docs/**` stays unchanged. |
-| Root `README.md` | Excluded from runtime payload. |
-| This consumer's root `.planning/**` | Excluded from this source project's runtime payload; consumer-owned. |
+| `docs/**` | Excluded from runtime payload; existing installed `.planning/docs/**` stays unchanged |
+| `README.md` | Excluded from runtime payload |
+| Consumer `.planning/**` | Excluded from this source project's runtime payload; consumer-owned |
 
-The legacy reviewer template does not replace `framework/workflows/templates/REVIEW-BRIEF-template.md`, which is the current review-brief template. The root `docs/` files preserve supporting documentation; their exclusion above does not remove or change existing global `.planning/docs/` files or other legacy paths.
+The legacy reviewer template does not replace the [current review template](framework/workflows/templates/REVIEW-BRIEF-template.md).
+Excluding these supporting docs does not remove existing installed documentation or other legacy paths.
+Installed `start-agent.sh` expects `orchestrator-routing.yaml` and `routing_lookup.py` beside itself in installed `.planning/orch/agents/`.
+The relay helpers expect the installed framework's planning layout.
+Their source locations are for editing and preservation, not direct execution.
 
-The installed helper locations preserve their current runtime assumptions. `start-agent.sh` finds `orchestrator-routing.yaml` and `routing_lookup.py` beside itself in `.planning/orch/agents/`. The relay helpers use the installed `.planning/orch/` layout. Their source paths under `framework/helpers/` are for editing and preservation, not direct execution.
+## Consumer records and maintenance
 
-## Consumer layout
+The intended consumer organization uses `.planning/orch/`, `.planning/specs/`, `.planning/decisions/`, and `.planning/ledger/`.
+These consumer paths hold framework documents, specifications, decisions, and work records, respectively.
+This layout description does not migrate a consumer or create its records.
+Existing consumer `.planning/docs/` and legacy paths remain untouched without separate authorization.
+Existing sync tooling reads installed `<framework-home>/.planning/` and enumerates its files; it does not consume source `framework/` directly.
 
-The agreed consumer target is `.planning/{orch,specs,decisions,ledger}`: framework documents under `orch/`, specifications under `specs/`, decisions under `decisions/`, and work records under `ledger/`. Create records only when work requires them. This target describes an intended consumer organization; this package does not migrate this repository or create consumer work records.
-
-Existing consumers may still have `.planning/docs/` and legacy paths. Leave those existing paths untouched unless a separate authorized change addresses them. Existing tooling still expects the deployed global layout: the current sync script reads `<framework-home>/.planning/` and enumerates files there. It is not changed to consume this repository's `framework/` directory, and this README does not claim that the new source layout is deployable by the current script.
-
-## Maintenance boundary
-
-Keep imported framework payload lossless unless a separate change authorizes content edits. When a future change alters framework layout, ownership, or any source-to-installed mapping, update this README in that same change. Deployment, sync changes, and consumer migrations require their own authorization.
+Keep imported framework material lossless unless a separate change authorizes content edits.
+Any change to layout, ownership, or placement must update this README in the same change.
+Deployment, sync changes, and consumer migrations need their own authorization.
+For the operating procedures and record ownership details, continue to [how it works](docs/how-it-works.md).
