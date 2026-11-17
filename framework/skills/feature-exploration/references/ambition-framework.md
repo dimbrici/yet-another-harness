@@ -1,18 +1,18 @@
-# Ambition Framework and Source Fidelity
+# Ambition Framework
 
 Use Altitude, Depth, and Range to improve the questions and evidence in exploration. Choose only techniques that could change the relevant direction. The [method](exploration-method.md) owns the activity sequence; [the entry point](../SKILL.md) owns authority and authorization limits.
 
-## Source fidelity
+## Concept and adaptation limits
 
 [S01] Adapt source ideas in our own words; copy no source text.
 
-[S02] Label the article's recommendations separately from our adaptations; use ambition techniques as conversation moves, never as expert impersonation.
+[S02] Present adapted ideas in our own words and distinguish established ideas from our adaptation; use ambition techniques as conversation moves, never as expert impersonation.
 
-The Altitude, Depth, and Range recommendations adapt Felix Rieseberg's *How to Be More Ambitious: A Tutorial for Humans With Models*. The conversation structure draws on Superpowers brainstorming and feature-dev. Neither the article nor the studied skills establish comparative benefit for this skill.
+The techniques and conversation structure adapt existing ideas in our own words. No measured benefit has been established for this workflow.
 
 ## Altitude — examine the objective
 
-**Article recommendations:** Felix Rieseberg asks readers to look beyond the immediate goal, supply relevant data, and examine important choices with opposing arguments. His examples include comparing a proposed process with historical results and embedding verification into a changed workflow.
+**Concept:** look beyond the immediate goal, supply relevant data, and examine important choices with opposing arguments. Examples include comparing a proposed process with historical results and embedding verification into a changed workflow.
 
 **Our adaptation:** ask what outcome the requested mechanism serves. Check embedded assumptions, symptoms versus causes, simpler possibilities, larger useful outcomes, and constraints inherited only from the current implementation. Offer the resulting reframe for human discussion, not as a replacement objective.
 
@@ -22,19 +22,19 @@ For example, a request for configurable states may express a need to support dif
 
 ## Depth — choose methods and disconfirming evidence
 
-**Article recommendations:** Rieseberg advocates professional instruments, raw evidence, challenges to assumptions, simulations checked against unseen data, and outside judgment. His four-part inquiry asks what a professional would investigate, what raw material matters, which methods apply, and what independent check could establish correctness. He also recommends goals that initially seem unreasonable.
+**Concept:** use professional instruments, raw evidence, challenges to assumptions, simulations checked against unseen data, and outside judgment. Ask what a professional would investigate, what raw material matters, which methods apply, and what independent check could establish correctness. Consider goals that initially seem unreasonable without treating them as requirements.
 
 **Our adaptation:** select relevant methods and evidence rather than relying on model recall. Identify technical constraints, invariants, algorithms, comparable implementations, failure cases, and falsification criteria. For a stateful feature, finite-state modeling, transition validation, concurrency analysis, event-order analysis, persistence compatibility, or migration analysis may be relevant. Select by uncertainty and consequence, not by a desire to appear exhaustive.
 
 A strong claim needs evidence that could prove it wrong. If repository reads cannot establish it, propose a bounded experiment through the method rather than predicting its result. Outside checks supplement evidence; they do not let the explorer approve its own work or take over independent review.
 
-We do not import the article's aggressive goals or its assumptions about installation and broad data access as permission. A method that needs tools outside the assignment remains a proposal.
+Aggressive goals and assumptions about installation or broad data access grant no permission. A method that needs tools outside the assignment remains a proposal.
 
 **Useful output:** a claim/evidence map, selected method, and a falsification criterion or proposed experiment for the material unknown.
 
 ## Range — borrow a useful method
 
-**Article recommendations:** Rieseberg suggests describing activities instead of fixed objects and drawing on other disciplines. He asks for their investigative methods rather than imitation of professional voices. He credits the object-to-activity move to Tom Kelley and Jonathan Littman's *The Art of Innovation*.
+**Concept:** describe activities instead of fixed objects and borrow investigative methods from other disciplines. Use those methods rather than imitate professional voices. An object-to-activity shift can reveal a more useful question.
 
 **Our adaptation:** name an applicable adjacent discipline, its specific method, and the reason it can resolve this feature's uncertainty. Examples are options, not a checklist:
 

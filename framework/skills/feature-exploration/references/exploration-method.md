@@ -26,8 +26,6 @@ Ask the highest-value missing question in the user's terms. Explain what its ans
 
 Start with existing repository read/search tools within the authorized set. Find the relevant entry points and trace behavior, data transformations, state changes, and outputs as needed. Read the important files themselves rather than relying on search hits or another summary.
 
-Serena and similar tools are optional, not adopted or required; setup suitability and practical benefit remain uncertain.
-
 [E03] Inventory the relevant in-scope items by reading them, including who owns or generates each item.
 
 Include configuration, generated artifacts, consumers, and similar functionality when relevant. Record the owner or generator and its evidence; mark unknown ownership explicitly. Trace boundaries, dependencies, invariants, failure handling, and edge cases that could change the direction. Check current behavior against tests and documentation by reading them; running tests is a different action subject to authorization.
@@ -60,7 +58,7 @@ For a proposed bounded experiment, name its question, minimal read/data set, exp
 
 Use Range only when an adjacent discipline offers a useful method. Name the discipline, the method, the uncertainty it addresses, and why that method fits. For example, database transaction analysis can expose unsafe concurrent state updates; HCI task analysis can expose a mismatch between workflow settings and user tasks.
 
-Apply the method to actual evidence. Drop it if it adds no decision-relevant insight. Use [the ambition reference](ambition-framework.md) for other examples and source fidelity rules, not as a requirement to consult every discipline.
+Apply the method to actual evidence. Drop it if it adds no decision-relevant insight. Use [the ambition reference](ambition-framework.md) for other examples and concept and adaptation limits, not as a requirement to consult every discipline.
 
 **Output:** a relevant new insight or testable hypothesis, with the method and reason; otherwise omit this activity's report detail.
 
