@@ -448,7 +448,7 @@ export default function (pi: ExtensionAPI) {
         // The tab must land in THIS orchestrator's workspace, not in whichever workspace
         // happens to have focus. herdr's own default ("current") follows focus, so a
         // dispatch issued while another lane is focused would put this lane's worker into
-        // that lane's workspace. Observed 2026-10-13: t189-fixtures was created in trino's
+        // that lane's workspace. Observed 2026-10-13: t189-fixtures was created in gamma's
         // workspace (wA, pane wA:pR6) because focus had moved there mid-dispatch. The defect
         // is symmetric -- any orchestrator could leak a worker into any other lane -- so the
         // default is derived from the orchestrator's own environment instead. An explicit

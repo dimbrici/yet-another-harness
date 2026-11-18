@@ -11,7 +11,7 @@
 # This mirrors the ledger rule: agents never write the Orchestrator's records.
 #
 # Usage in a relay:
-#   RELAY_LOG=/tmp/trino-scenario-decisions/relay/T123-relay.log
+#   RELAY_LOG=/tmp/legacy-decisions/relay/T123-relay.log
 #   TSK_ID=T15                 # board task this assignment belongs to (optional)
 #   source <repo-root>/.planning/orch/relay-lib.sh
 #
@@ -107,7 +107,7 @@ relay_fire_status() {  # $1=TASK $2=AGENT $3=STATUS $4=WAIT_GET $5=REPORT [extra
 # to be looked at. `extra` is free text, exactly as on the command line.
 relay_emit_event() {  # $1=TASK $2=AGENT $3=STATUS $4=WAIT_GET $5=REPORT [extra]
   python3 - \
-    "${ORCH_EVENTS_DIR:-/tmp/trino-scenario-decisions/relay-inbox}" \
+    "${ORCH_EVENTS_DIR:-/tmp/legacy-decisions/relay-inbox}" \
     "$1" "$2" "$3" "$4" "$5" "${6:-}" "${TSK_ID:-none}" "${RELAY_LOG:-}" <<'PY'
 import json, os, sys
 from datetime import datetime, timezone

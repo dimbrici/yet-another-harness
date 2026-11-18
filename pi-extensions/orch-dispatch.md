@@ -62,8 +62,8 @@ That name must match:
 ^orchestrator(-[a-z0-9]+)*$
 ```
 
-One orchestrator per space, so `orchestrator`, `orchestrator-masking` and
-`orchestrator-tskctl` all pass, while `extensibility-orchestrator` does **not** (the
+One orchestrator per space, so `orchestrator`, `orchestrator-alpha` and
+`orchestrator-beta` all pass, while `extensibility-orchestrator` does **not** (the
 pattern is anchored: a substring test would match a worker named
 `orch-something`). Anything else is refused with instructions to run `/name
 orchestrator`.
@@ -94,7 +94,7 @@ Paths are resolved **lazily, at call time** — never captured at module load �
 the extension host imports the module once but the right directory depends on the
 session's cwd.
 
-> This used to be hardcoded to `/tmp/trino-scenario-decisions/...` — the project where
+> This used to be hardcoded to `/tmp/legacy-decisions/...` — the project where
 > the machinery was first built. See "History" at the end.
 
 ---
@@ -185,8 +185,8 @@ dispatched t179_architect  role=architect
   prompt         : submitted
   ready before   : yes
   state after    : working
-  relay          : /tmp/orch/masking/relay/T179-COMPILE-watch.sh
-  report gate    : /tmp/orch/masking/reports/T179.md must contain "SPECS_COMPILED" and be newer than ...
+  relay          : /tmp/orch/alpha/relay/T179-COMPILE-watch.sh
+  report gate    : /tmp/orch/alpha/reports/T179.md must contain "SPECS_COMPILED" and be newer than ...
 ```
 
 Two warnings can be appended:
@@ -372,17 +372,17 @@ Compile-time constants in `orch-dispatch.ts`:
 
 ## History
 
-The three state paths were hardcoded to `/tmp/trino-scenario-decisions/{relay,
+The three state paths were hardcoded to `/tmp/legacy-decisions/{relay,
 relay-inbox,runs/run-command}` — the project where the machinery was first built. Any
 other repo running an orchestrator inherited them, so two projects shared a `/tmp`
-namespace, and `.planning/orch/relay-lib.sh` (a per-repo copy) hardcoded both the trino
+namespace, and `.planning/orch/relay-lib.sh` (a per-repo copy) hardcoded both the gamma
 repo root and the bare agent name `orchestrator` in `relay_fire` / `relay_fire_status`.
 
-The visible symptom: a relay armed in the `masking` workspace fired its settle event
-at the **trino** control plane. Making the target *data* instead of a literal — resolved
+The visible symptom: a relay armed in the `alpha` workspace fired its settle event
+at the **gamma** control plane. Making the target *data* instead of a literal — resolved
 from the live registry by name pattern **and** cwd — is what fixed it.
 
-The same audit found masking's `relay-lib.sh` copy was **stale** as well as
+The same audit found alpha's `relay-lib.sh` copy was **stale** as well as
 hardcoded: `lib/relay-script.mjs` calls `relay_is_gone`, `relay_blocked_label`,
 `relay_fire_status` and `relay_emit_event`, and the copy defined none of them, so a
 generated relay would have died on `command not found` even after the target was
