@@ -5,7 +5,7 @@
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { chmodSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";import { tmpdir } from "node:os";
+import { chmodSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, test } from "node:test";
 
@@ -282,7 +282,7 @@ exit 0
 /** Load tool-watchdog.ts the way pi does, with Date.now and the env bent to the test. */
 async function loadWatchdog() {
   const jitiStatic =
-    "/Users/domenicoimbrici/.local/lib/node_modules/@earendil-works/pi-coding-agent/node_modules/jiti/lib/jiti-static.mjs";
+    join(homedir(), ".local", "lib", "node_modules", "@earendil-works", "pi-coding-agent", "node_modules", "jiti", "lib", "jiti-static.mjs");
   const { createJiti } = await import(jitiStatic);
   const jiti = createJiti(import.meta.url, { moduleCache: false });
   const entry = join(import.meta.dirname, "..", "tool-watchdog.ts");

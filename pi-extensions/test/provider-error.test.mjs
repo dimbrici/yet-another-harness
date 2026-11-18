@@ -5,7 +5,7 @@
 
 import assert from "node:assert/strict";
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, describe, test } from "node:test";
 
@@ -189,7 +189,7 @@ describe("hook wiring", () => {
 
 test("smoke check: agent-health.ts through pi's own jiti loader", async () => {
   const jitiStatic =
-    "/Users/domenicoimbrici/.local/lib/node_modules/@earendil-works/pi-coding-agent/node_modules/jiti/lib/jiti-static.mjs";
+    join(homedir(), ".local", "lib", "node_modules", "@earendil-works", "pi-coding-agent", "node_modules", "jiti", "lib", "jiti-static.mjs");
   const entry = join(import.meta.dirname, "..", "agent-health.ts");
   const pi = fakePi();
   try {

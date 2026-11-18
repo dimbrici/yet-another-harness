@@ -8,15 +8,12 @@
 // fails loudly: a skipped pin is a pin nobody is holding.
 
 import { existsSync } from "node:fs";
-import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 
 const RELAY_LIB_RELATIVE = join(".planning", "orch", "relay-lib.sh");
 
-/** Same candidate list as the relay library's own default REPO_ROOT: CSI repos first. */
+/** Candidate roots, in order: the working directory and its parent. ORCH_RELAY_LIB overrides this list. */
 const CANDIDATE_ROOTS = [
-  join(homedir(), "Documents", "Projects", "CSI", "trino"),
-  join(homedir(), "Documents", "Projects", "CSI", "masking"),
   process.cwd(),
   join(process.cwd(), ".."),
 ];
