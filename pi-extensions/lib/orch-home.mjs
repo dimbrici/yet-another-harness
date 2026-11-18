@@ -3,18 +3,18 @@
 //
 // WHY THIS FILE EXISTS
 // --------------------
-// This state used to live at three hardcoded paths under /tmp/trino-scenario-decisions,
+// This state used to live at three hardcoded paths under /tmp/legacy-decisions,
 // one per consumer:
 //
-//   orch-dispatch.ts:65      RELAY_DIR   = /tmp/trino-scenario-decisions/relay
-//   lib/orch-events.mjs:23   inbox root  = /tmp/trino-scenario-decisions/relay-inbox
-//   lib/run-store.mjs:63     runs dir    = /tmp/trino-scenario-decisions/runs/run-command
+//   orch-dispatch.ts:65      RELAY_DIR   = /tmp/legacy-decisions/relay
+//   lib/orch-events.mjs:23   inbox root  = /tmp/legacy-decisions/relay-inbox
+//   lib/run-store.mjs:63     runs dir    = /tmp/legacy-decisions/runs/run-command
 //
 // Those literals came from the project where the machinery was first built. Any
 // OTHER repo that ran an orchestrator inherited them, so two projects sharing a
 // /tmp namespace wrote relays, inbox files and run folders into the same
-// directories. The visible symptom was a relay in the `masking` workspace firing
-// its settle event at the `trino` control plane.
+// directories. The visible symptom was a relay in the `alpha` workspace firing
+// its settle event at the `gamma` control plane.
 //
 // THE CONVENTION
 // --------------
@@ -45,7 +45,7 @@
 // -------------
 //   import { relayDir, inboxDir, runsDir } from "./lib/orch-home.mjs";
 //
-//   relayDir()                  // -> /tmp/orch/masking/relay
+//   relayDir()                  // -> /tmp/orch/alpha/relay
 //   relayDir("/srv/repo")       // -> /tmp/orch/repo/relay
 //   inboxDir("/srv/repo", env)  // honours ORCH_EVENTS_DIR, then ORCH_HOME, then the pin
 //
@@ -59,7 +59,7 @@
 // To keep a project on its current directory, either export ORCH_HOME in its
 // session environment, or drop a pin file:
 //
-//   printf '%s\n' /tmp/trino-scenario-decisions > .planning/orch/orch-home
+//   printf '%s\n' /tmp/legacy-decisions > .planning/orch/orch-home
 //
 // Without one of those the project moves to /tmp/orch/<repo> on the next session.
 // Nothing is deleted either way: relays are self-contained scripts that carry their

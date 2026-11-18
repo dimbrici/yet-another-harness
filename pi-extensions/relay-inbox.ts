@@ -29,7 +29,7 @@ import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 // an extension's ENTRY files but REUSES cached instances of their sibling modules, so a
 // sibling edited mid-session keeps serving its pre-edit code even though the file on disk
 // is correct. An inbox path resolved through it silently stays on the old directory: on
-// 2026-10-13 this session went on claiming trino's relay events after the plumbing had
+// 2026-10-13 this session went on claiming gamma's relay events after the plumbing had
 // been made repo-generic, because orch-events.mjs was cached from before the edit while
 // this entry file reloaded. orch-home.mjs is the one resolver every consumer already
 // shares, so calling it here keeps the paths consistent AND survives a reload.

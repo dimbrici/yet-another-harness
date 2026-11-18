@@ -2,7 +2,7 @@
 // rules, the reader, the flat line, and the appended bash helper's contract.
 //
 // Everything runs against a per-test temp dir. The production inbox under
-// /tmp/trino-scenario-decisions/relay-inbox is never written by this suite.
+// /tmp/legacy-decisions/relay-inbox is never written by this suite.
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";

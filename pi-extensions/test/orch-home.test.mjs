@@ -94,8 +94,8 @@ describe("root resolution priority", () => {
   });
 
   test("an absolute pin line is used as-is", () => {
-    const pinned = pinnedRepo("lane-abs", "/tmp/trino-scenario-decisions\n");
-    assert.equal(orchHome(pinned, {}), "/tmp/trino-scenario-decisions");
+    const pinned = pinnedRepo("lane-abs", "/tmp/legacy-decisions\n");
+    assert.equal(orchHome(pinned, {}), "/tmp/legacy-decisions");
   });
 
   test("a relative pin line resolves from the repo root, not the process cwd", () => {
