@@ -23,7 +23,7 @@ Package id; branch + base (never a commit hash); diff range; declared/owned vs p
 
 ## Explicit skill and agent-doc paths (no auto-loading)
 
-- Implementation briefs reference the code-quality skill: `/Users/domenicoimbrici/.pi/agent/npm/node_modules/@firstpick/pi-skill-code-quality/skills/code-quality/SKILL.md`.
+- Implementation briefs reference the code-quality skill: `~/.pi/agent/npm/node_modules/@firstpick/pi-skill-code-quality/skills/code-quality/SKILL.md` (a brief spells out the absolute path for its machine).
 - Reviewer briefs reference the independent review skill: `.planning/orch/skills/reviewing-code-modularity-skill/SKILL.md`, Mode A (diff review), alongside the review requirements in `REVIEWER_AGENT.md`.
 - Refactor work names the specific skill paths and modes (`refactor-analysis` review vs discovery, `safe-refactor` only for an authorized executor assignment). Agent role boundaries live in the role docs: `.planning/orch/agents/PLANNER_AGENT.md`, `.planning/orch/agents/EXECUTOR_AGENT.md`, `.planning/orch/agents/REVIEWER_AGENT.md`.
 

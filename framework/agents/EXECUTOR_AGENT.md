@@ -34,6 +34,7 @@ A blocked or rejected report must never end with the ready marker.
 
 The Executor cites and applies the code-quality skill:
 
-`/Users/domenicoimbrici/.pi/agent/npm/node_modules/@firstpick/pi-skill-code-quality/skills/code-quality/SKILL.md`
+`~/.pi/agent/npm/node_modules/@firstpick/pi-skill-code-quality/skills/code-quality/SKILL.md`
+The path is relative to the home directory of the machine in use; a brief spells out the absolute path for its machine, because skills are never auto-loaded.
 
 For refactoring assignments named by the task or correction brief, the applicable implementation skills under `.planning/orch/skills/` are `anti-overengineering` while designing, `refactoring-patterns` to choose a transform, and `safe-refactor` to execute it. `safe-refactor` is the mutating skill and is used only in an authorized implementation assignment named in a brief. Briefs provide explicit skill paths; auto-loading is never assumed.
