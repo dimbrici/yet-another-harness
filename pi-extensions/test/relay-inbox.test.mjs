@@ -7,7 +7,7 @@
 
 import assert from "node:assert/strict";
 import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, test } from "node:test";
 
@@ -286,7 +286,7 @@ async function shutdownAll() {
 }
 
 const JITI_STATIC =
-  "/Users/domenicoimbrici/.local/lib/node_modules/@earendil-works/pi-coding-agent/node_modules/jiti/lib/jiti-static.mjs";
+  join(homedir(), ".local", "lib", "node_modules", "@earendil-works", "pi-coding-agent", "node_modules", "jiti", "lib", "jiti-static.mjs");
 
 async function loadInto(fake, inbox) {
   const { createJiti } = await import(JITI_STATIC);

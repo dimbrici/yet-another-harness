@@ -13,12 +13,12 @@
 # Usage in a relay:
 #   RELAY_LOG=/tmp/trino-scenario-decisions/relay/T123-relay.log
 #   TSK_ID=T15                 # board task this assignment belongs to (optional)
-#   source /Users/domenicoimbrici/Documents/Projects/CSI/trino/.planning/orch/relay-lib.sh
+#   source <repo-root>/.planning/orch/relay-lib.sh
 #
 # Never edit a RUNNING relay in place -- bash reads scripts incrementally, so
 # replace it with a fresh watcher instead.
 
-REPO_ROOT="${REPO_ROOT:-/Users/domenicoimbrici/Documents/Projects/CSI/trino}"
+REPO_ROOT="${REPO_ROOT:-$PWD}"
 
 # --- logging ---------------------------------------------------------------
 relay_log() { echo "[$(date +%H:%M:%S)] $*" >> "${RELAY_LOG:-/dev/null}"; }
