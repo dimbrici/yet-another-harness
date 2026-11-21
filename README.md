@@ -45,6 +45,12 @@ Its publication does not activate a fourth workflow or grant implementation auth
 
 ## Repository tour and ownership
 
+- Source `tools/checks/` contains the repository checks, and `.githooks/` the versioned hooks that run them. See [docs/contributing-checks.md](docs/contributing-checks.md).
+
+Before you commit, run `node tools/checks/checks.mjs` (or install the hooks once with
+`git config core.hooksPath .githooks`). The checks need no installed packages and no
+network, and CI runs the same command on every pull request.
+
 - Source `framework/agents/` contains role instructions and replaceable routing assignments.
 - Source `framework/workflows/` contains the three workflow rules, current templates, and a historical template.
 - Source `framework/skills/` contains skills with supporting references, evaluations, and license material.

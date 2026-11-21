@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Full gate: everything pre-commit runs, plus the node test suite.
+# Commits are cheap to amend; a pushed branch is not, so the suite runs here.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+exec node tools/checks/checks.mjs
