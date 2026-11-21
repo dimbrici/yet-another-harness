@@ -1,17 +1,66 @@
-# pre-commit is the runner; the checks themselves live in tools/checks/checks.mjs.
+# Upstream hook repositories, pinned by tag. pre-commit fetches them on first run and
+# caches them; `pre-commit autoupdate` moves the pins.
 #
-# Every hook is `repo: local` + `language: system`, so this config fetches nothing
-# from the network and runs no third-party code. The upside of pre-commit that we
-# keep: one familiar command, staged-file selection, parallel execution, and the
-# pre-push stage. The checks stay dependency-free and also run on their own:
+# No prettier: its pre-commit mirror installs node through nodeenv, which fails on this
+# machine, and running it over 40 prose documents rewrites them wholesale. Whitespace
+# is covered by pre-commit-hooks and the formatting rules are in docs/contributing-checks.md.
 #
-#   node tools/checks/checks.mjs [--fast] [--fix]
+# The two `repo: local` hooks at the bottom are the checks no upstream hook provides:
+# this repository's public-repository privacy rules, and the extension test suite.
 minimum_pre_commit_version: "3.0.0"
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=512]
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+        # The relay fixture is sourced by the tests, never executed, and its 0644
+        # mode is part of the deployed-copy evidence.
+        exclude: ^pi-extensions/test/fixtures/
+      - id: detect-private-key
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.50.0
+    hooks:
+      - id: markdownlint
+        args: [--config, .markdownlint.yaml, --fix]
+        # nodeenv cannot bootstrap node on this machine; use the system node.
+        language_version: system
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1-1
+    hooks:
+      - id: shellcheck
+        # SC1091: helper templates source relay-lib.sh from the consumer's .planning,
+        #         which does not exist in this repo; SC2034: template placeholders are
+        #         assigned there to be read by the generated script.
+        args:
+          - -e
+          - SC1091,SC2034
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.6
+    hooks:
+      - id: ruff
+
   - repo: local
     hooks:
-      - id: repo-checks
-        name: repository checks (fast)
+      - id: repo-privacy-and-syntax
+        name: repository privacy and syntax checks
         entry: node tools/checks/checks.mjs --fast
         language: system
         pass_filenames: false

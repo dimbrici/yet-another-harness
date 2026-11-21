@@ -9,6 +9,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 ## Reshaping
 
 ### Extract Function
+
 - **Signal:** a block inside a function does one identifiable job, or needs a name to be understood.
 - **Use when:** extraction gives the block a meaningful name and shortens or clarifies the caller.
 - **Not when:** the block mutates many locals, or the name would be as complex as the body.
@@ -16,6 +17,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** same outputs for the same inputs; add a focused test for the extracted behavior where it lacked one.
 
 ### Inline Function
+
 - **Signal:** a function body is as clear as its name, or it only forwards.
 - **Use when:** the indirection adds nothing and callers are just as readable without it.
 - **Not when:** the function is a public/stable surface or a real seam.
@@ -23,6 +25,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** callers change together; no external consumer used it.
 
 ### Extract Class
+
 - **Signal:** one class holds two responsibilities that change for different reasons.
 - **Use when:** the subset has its own data + behavior and a name.
 - **Not when:** it would create a shallow holder with no behavior or just move fields around.
@@ -30,6 +33,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** moved behavior tests pass; no partial state left behind.
 
 ### Inline Class
+
 - **Signal:** a class does almost nothing, or only one caller uses it.
 - **Use when:** folding it back into its user removes a concept without losing clarity.
 - **Not when:** it is a stable boundary or has multiple users.
@@ -37,6 +41,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** callers compile; the behavior is unchanged.
 
 ### Move Function
+
 - **Signal:** a function is more interested in another module's data than its own.
 - **Use when:** the destination owns most of what the function touches.
 - **Not when:** the move creates a cycle or leaks internals.
@@ -44,6 +49,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** all callers found (including dynamic); dependency direction still points correctly.
 
 ### Move Field
+
 - **Signal:** a field is read or written mostly by another class.
 - **Use when:** the destination owns the field's lifecycle.
 - **Not when:** it would break invariants that the current owner enforces.
@@ -51,6 +57,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** no serialization/persistence break; tests green.
 
 ### Rename Symbol
+
 - **Signal:** a name is vague, misleading, or inconsistent with nearby conventions.
 - **Use when:** the new name reflects actual responsibility.
 - **Not when:** it is a public API or persisted format without a compatibility plan.
@@ -58,6 +65,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** build/tests; external contract unchanged or migrated.
 
 ### Change Function Declaration
+
 - **Signal:** a signature is awkward, over-long, or hides required order.
 - **Use when:** a clearer signature removes caller mistakes.
 - **Not when:** it churns a stable public API for taste alone.
@@ -65,6 +73,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** all call sites; behavior identical.
 
 ### Introduce Parameter Object
+
 - **Signal:** the same group of parameters travels together across several functions.
 - **Use when:** the group is a real concept and grouping reduces repetition.
 - **Not when:** it is two values passed once, or the group is coincidental.
@@ -72,6 +81,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** behavior unchanged; no speculative fields added.
 
 ### Replace Primitive with Value Object
+
 - **Signal:** a primitive carries domain meaning and validation rules (money, ids, durations).
 - **Use when:** invalid values keep slipping through or the rule is duplicated.
 - **Not when:** it is a plain number/string with no invariants.
@@ -79,6 +89,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** invalid values now fail at one boundary; no equality/serialization regression.
 
 ### Encapsulate Variable
+
 - **Signal:** a field or global is read/written from many places.
 - **Use when:** access needs one owner so invariants can hold.
 - **Not when:** it is a trivial local with a single consumer.
@@ -86,6 +97,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** no direct access remains; writers use the guarded path.
 
 ### Encapsulate Collection
+
 - **Signal:** callers mutate an exposed list/map directly.
 - **Use when:** direct mutation bypasses rules or ordering.
 - **Not when:** it is a pure data transfer object with no rules.
@@ -93,6 +105,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** no external mutation path remains; behavior preserved.
 
 ### Split Phase
+
 - **Signal:** a function mixes two stages (e.g. parse then compute) with different inputs/outputs.
 - **Use when:** separating the stages clarifies data flow and testing.
 - **Not when:** the stages are tiny or share lots of state.
@@ -100,6 +113,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** same final result; each stage testable alone.
 
 ### Combine Functions into Class
+
 - **Signal:** several functions share the same parameters/state.
 - **Use when:** the shared state clarifies ownership.
 - **Not when:** it creates a holder with no cohesive behavior.
@@ -107,6 +121,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** behavior unchanged; no hidden mutable shared state added.
 
 ### Combine Functions into Transform
+
 - **Signal:** derived data is computed and recomputed in several places.
 - **Use when:** one function can produce the derived form for all consumers.
 - **Not when:** consumers need different projections.
@@ -114,6 +129,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** all consumers use it; no stale copies remain.
 
 ### Separate Query from Modifier
+
 - **Signal:** a function returns a value and also changes state.
 - **Use when:** the side effect is surprising or makes testing hard.
 - **Not when:** the combined behavior is the actual contract and callers rely on it.
@@ -121,6 +137,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** call ordering preserved where it mattered; tests green.
 
 ### Replace Derived Variable with Query
+
 - **Signal:** a stored value is always derivable from other state.
 - **Use when:** the copy can get stale or must be kept in sync manually.
 - **Not when:** computation is expensive and caching is the point.
@@ -128,6 +145,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** no remaining writers to the removed field.
 
 ### Replace Constructor with Factory Function
+
 - **Signal:** construction needs branching, naming, or returns a subtype.
 - **Use when:** a named factory function expresses intent better than `new X(...)`.
 - **Not when:** a plain constructor is unambiguous — do not add a factory by reflex.
@@ -135,6 +153,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** all construction goes through it; no behavior change.
 
 ### Remove Flag Argument
+
 - **Signal:** a boolean/mode parameter switches what a function does.
 - **Use when:** two clear functions replace one conditional-laden function.
 - **Not when:** the flag is genuinely a small variation with shared body.
@@ -146,6 +165,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 ## Simplifying / removing
 
 ### Delete Wrapper
+
 - **Signal:** a function/class only calls another with the same arguments.
 - **Use when:** the wrapper adds no policy, validation, or name value.
 - **Not when:** it is a stable seam, a test seam, or a compatibility shim with a removal plan.
@@ -153,6 +173,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** no callers remain; public surface intentionally changed or unchanged.
 
 ### Delete Pass-through Layer
+
 - **Signal:** `A → B → C` where B only forwards to C.
 - **Use when:** removing B improves locality and no cross-cutting concern lives there.
 - **Not when:** B owns validation, auth, mapping, or transaction boundaries.
@@ -160,6 +181,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** errors/ordering/retries observed by A are unchanged.
 
 ### Inline Interface
+
 - **Signal:** an interface has exactly one implementation and no independent test seam.
 - **Use when:** the abstraction adds indirection without a boundary.
 - **Not when:** it isolates an external dependency, or multiple implementations are real today.
@@ -167,6 +189,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** no other implementers/consumers; tests still isolate what they need.
 
 ### Collapse Hierarchy
+
 - **Signal:** a superclass/subclass pair differs trivially.
 - **Use when:** the hierarchy adds no behavioral difference.
 - **Not when:** subclasses share real overridable behavior or the base is a public contract.
@@ -174,6 +197,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** no overrides lost; external type checks unchanged.
 
 ### Remove Unnecessary Factory
+
 - **Signal:** a factory creates one concrete type with no branching or lifecycle logic.
 - **Use when:** direct construction is clearer.
 - **Not when:** it centralizes configuration, caching, or resource management.
@@ -181,6 +205,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** no lost setup logic; callers updated.
 
 ### Remove Premature Extension Point
+
 - **Signal:** hooks, registries, plugins, or strategies with no current second case.
 - **Use when:** the extension point is unused "for later" and adds concepts.
 - **Not when:** a real second case exists or is already scheduled with a named consumer.
@@ -188,6 +213,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** nothing references the removed point; behavior unchanged.
 
 ### Replace Custom Abstraction with Language Primitive
+
 - **Signal:** a hand-rolled type/helper reimplements a standard language or library feature.
 - **Use when:** the primitive is clearer and well understood.
 - **Not when:** the custom version encodes domain rules the primitive lacks.
@@ -195,6 +221,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** edge cases (empty, null, ordering) behave the same.
 
 ### Replace Framework Mechanism with Simple Function
+
 - **Signal:** a heavyweight framework feature is used for a small, local need.
 - **Use when:** a plain function is easier to read, test, and debug.
 - **Not when:** the framework provides lifecycle, safety, or concurrency guarantees in use.
@@ -202,6 +229,7 @@ Reminder: a transform is a means to remove a named root cause, never a goal. If 
 - **Verify:** the guarantee the framework provided is preserved or explicitly re-implemented.
 
 ### Replace Polymorphism with Conditional
+
 - **Signal:** a class hierarchy exists for two behaviors with no shared state, or subclasses only override one method.
 - **Use when:** a conditional is shorter and easier to trace than the hierarchy.
 - **Not when:** the hierarchy is open for real extension or keeps behavior with its data.

@@ -1,21 +1,11 @@
 # Repository checks
 
-Everything here runs with no dependencies to install and without network access: Node
-builtins plus `git`, `bash` and `python3`. That is deliberate — the checks must work on a
-fresh machine and inside CI without a package manager step.
+Hooks run through [pre-commit](https://pre-commit.com/). Most come from upstream hook
+repositories, pinned by tag; `pre-commit autoupdate` moves the pins. Two hooks are local
+because no upstream hook covers them: this repository's privacy rules and the extension
+test suite.
 
-## Run them
-
-```bash
-node tools/checks/checks.mjs          # everything, including the test suite
-node tools/checks/checks.mjs --fast   # everything except the test suite
-node tools/checks/checks.mjs --fix    # repair trailing whitespace and missing final newlines
-```
-
-## Install the hooks
-
-`pre-commit` is the recommended runner. The hooks are `repo: local` + `language: system`,
-so nothing is fetched from the network and no third-party hook code runs:
+## Install
 
 ```bash
 pre-commit install                        # pre-commit stage
@@ -23,65 +13,63 @@ pre-commit install --hook-type pre-push   # pre-push stage
 pre-commit run --all-files                # run everything now
 ```
 
-Without `pre-commit`, or without Python on the machine, the checks run directly and git
-uses the versioned hooks in `.githooks/`:
+The first run fetches the hook repositories into `~/.cache/pre-commit`; later runs use the
+cache.
+
+## What runs
+
+| Hook | Source | What it enforces |
+| --- | --- | --- |
+| trailing-whitespace, end-of-file-fixer, mixed-line-ending | pre-commit-hooks | whitespace and line endings, with autofix |
+| check-yaml, check-json | pre-commit-hooks | configuration files parse |
+| check-merge-conflict | pre-commit-hooks | no conflict markers committed |
+| check-added-large-files | pre-commit-hooks | 512 KB limit |
+| check-executables-have-shebangs, check-shebang-scripts-are-executable | pre-commit-hooks | a shebang and an executable bit travel together |
+| detect-private-key | pre-commit-hooks | private key blocks |
+| detect-secrets | Yelp/detect-secrets | credentials and high-entropy strings |
+| markdownlint | markdownlint-cli | Markdown structure, with autofix |
+| shellcheck | shellcheck-py | shell correctness |
+| ruff | ruff-pre-commit | Python |
+| repo-privacy-and-syntax | local | machine paths, personal emails, replaced customer names, TypeScript and Markdown link checks |
+| repo-checks-with-tests | local, pre-push | everything above plus `node --test pi-extensions/test` |
+
+The local checks live in `tools/checks/checks.mjs` and run without pre-commit too:
 
 ```bash
-node tools/checks/checks.mjs --fast       # what pre-commit would run
-git config core.hooksPath .githooks        # enable the same hooks without pre-commit
+node tools/checks/checks.mjs          # with the test suite
+node tools/checks/checks.mjs --fast    # without it
+node tools/checks/checks.mjs --fix     # repair whitespace and missing final newlines
 ```
 
-Use one or the other. `core.hooksPath` and `pre-commit install` both write git hooks, and
-having both means whichever was installed last wins.
+## Configuration files
 
-- **pre-commit stage** runs `--fast`: hygiene, privacy and syntax, about a second.
-- **pre-push stage** runs everything, including `node --test pi-extensions/test`.
+- `.pre-commit-config.yaml` — the hooks and their pins.
+- `.markdownlint.yaml` — long prose lines, deliberate repeat headings, embedded HTML and
+  table pipe alignment are allowed; everything else must pass.
+- `.githooks/` — the same two local checks as plain git hooks, for a clone without Python.
+  Use either `pre-commit install` or `git config core.hooksPath .githooks`, never both:
+  each writes git hooks, so the last one installed wins.
 
-CI (`.github/workflows/checks.yml`) runs the same command on pull requests, so a hook
-someone forgot to install still cannot pass unnoticed.
+## Deliberate exceptions
 
-### Why local hooks instead of the usual `pre-commit-hooks`
-
-The well-known hook repos (`pre-commit/pre-commit-hooks`, `mirrors-prettier`,
-`ruff-pre-commit`) clone from GitHub on first run and then execute that code. For a
-repository whose payload is agent instructions, that is a supply-chain surface and a
-network requirement for every contributor. Everything those hooks do here is already in
-`checks.mjs`, in a few dozen lines, with no network. Adopt the upstream hooks when a check
-genuinely needs one; add it as a normal `repo:` entry then.
-
-## What is checked
-
-| Area | Check |
-| --- | --- |
-| Hygiene | final newline, LF endings, no byte-order mark, no trailing whitespace, no tabs, no merge conflict markers, 512 KB file limit |
-| Secrets | GitHub tokens, `sk-` keys, AWS key ids, Slack tokens, private key blocks |
-| Privacy | machine-specific home paths, personal email addresses, and the customer names that were deliberately replaced (`masking`, `tskctl`, `trino` to `alpha`, `beta`, `gamma`) <!-- checks:allow customer-names --> |
-| Structure | JSON parses, YAML parses, Markdown relative links resolve, no duplicate headings |
-| Syntax | TypeScript type-strips, JavaScript parses, `bash -n`, `python3 -m py_compile`, optional `shellcheck` when installed |
-| Behaviour | the `pi-extensions` test suite |
-
-The privacy checks exist because this repository is public and has leaked customer names
-and machine paths before. They are the cheapest possible guard against repeating that.
+- **No prettier.** Its pre-commit mirror bootstraps node through `nodeenv`, which fails on
+  this machine, and running it over the prose documents rewrites them wholesale. Whitespace
+  is covered by pre-commit-hooks; the formatting rules are: two spaces, no tabs, LF endings,
+  one final newline, no trailing whitespace.
+- **shellcheck ignores SC1091 and SC2034.** The helper templates source `relay-lib.sh` from
+  the consumer's `.planning/`, which does not exist in this repository, and they assign
+  placeholder variables that the generated script reads.
+- **The relay fixture is not executable.** `pi-extensions/test/fixtures/relay-lib.sh` is
+  sourced by tests, and its `0644` mode is part of the deployed-copy evidence.
+- **Secrets in the pin table.** The pinned SHA-256 digests in
+  `pi-extensions/test/orch-events.test.mjs` are inline-allowlisted rather than baselined, so
+  the allowlist sits next to the reason.
+- **`checks:allow`.** A single line may opt out of the local privacy rules with this marker,
+  which is how this document names the forbidden words without failing itself.
 
 ## Add a check
 
-A line may opt out of the privacy rules with a `checks:allow` marker, which is how the
-table above names the forbidden words without failing itself. Use it for documentation
-only; it disables the check for that one line, never for the file.
-
-Add a function to `tools/checks/checks.mjs` and call it from the loop at the bottom. Report
-problems with `report(file, line, message)`; never throw, because one broken file must not
-hide the rest. Keep new checks dependency-free — if a check needs a tool that may be
-absent, detect it and skip instead of failing (see the `shellcheck` branch).
-
-## Formatting
-
-There is no formatter dependency, because adding one would mean a package manager and a
-lockfile for a repository that currently needs neither. `--fix` handles the mechanical
-part: trailing whitespace and the final newline. Everything else is a review matter, and
-the rules are small enough to state in one line each:
-
-- two spaces of indentation, no tabs;
-- LF endings, one final newline;
-- Markdown and shell lines under 120 columns;
-- no trailing whitespace.
+Add an upstream hook to `.pre-commit-config.yaml` and run `pre-commit autoupdate`. Only when
+no upstream hook exists, add a function to `tools/checks/checks.mjs` and call it from the loop
+at the bottom; report problems with `report(file, line, message)` and never throw, because
+one broken file must not hide the rest.

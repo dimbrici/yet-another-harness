@@ -1,0 +1,9 @@
+# Long prose lines are deliberate in this repository; wrapping them makes diffs noisy.
+MD013: false
+# Reference documents repeat "Bad"/"Better" headings on purpose.
+MD024: false
+# Table pipe alignment is a formatter preference, not a correctness rule.
+MD060: false
+# Tables and inline HTML appear in the docs.
+MD033: false
+MD041: false

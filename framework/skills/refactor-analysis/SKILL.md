@@ -67,7 +67,7 @@ Every finding cites `path:line` or `path:symbol` and shows the concrete relation
 
 ## Output contract
 
-```
+```text
 Refactoring target:        <short name>
 Problem:                   <observable friction, in plain terms>
 Evidence:                  <path:line / symbol references>
@@ -86,19 +86,19 @@ When several targets exist, rank them and mark each `Strong | Worth exploring | 
 
 In **review** mode add one line per finding:
 
-```
+```text
 Classification: <BLOCKING | NON-BLOCKING | NO ACTION>
 ```
 
 Review mode may also conclude:
 
-```
+```text
 NO REFACTORING FINDINGS — <why the change is structurally sound>
 ```
 
 If the area is reasonable, say so explicitly:
 
-```
+```text
 NO REFACTORING RECOMMENDED — <why the current shape is justified>
 ```
 

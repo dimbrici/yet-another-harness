@@ -26,7 +26,7 @@ This is the only mutating skill in the toolkit, and only within the authorized s
 
 ## The loop
 
-```
+```text
 small change → format/lint → compile/type-check → targeted tests → next increment
 ```
 
@@ -65,7 +65,7 @@ If a check cannot run, say so and why; do not present it as passing.
 
 ## Completion report
 
-```
+```text
 What changed:                         <files/symbols and the structural change>
 What was deliberately left unchanged: <guardrails honored>
 Tests/validation performed:           <exact commands + results>
