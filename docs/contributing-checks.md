@@ -14,18 +14,40 @@ node tools/checks/checks.mjs --fix    # repair trailing whitespace and missing f
 
 ## Install the hooks
 
-Hooks are versioned in `.githooks/`. Point git at them once per clone:
+`pre-commit` is the recommended runner. The hooks are `repo: local` + `language: system`,
+so nothing is fetched from the network and no third-party hook code runs:
 
 ```bash
-git config core.hooksPath .githooks
+pre-commit install                        # pre-commit stage
+pre-commit install --hook-type pre-push   # pre-push stage
+pre-commit run --all-files                # run everything now
 ```
 
-- **pre-commit** runs `--fast`: hygiene, privacy and syntax. It takes about a second.
-- **pre-push** runs everything, including `node --test pi-extensions/test`. A local commit
-  is easy to amend; a pushed branch is not.
+Without `pre-commit`, or without Python on the machine, the checks run directly and git
+uses the versioned hooks in `.githooks/`:
 
-CI (`.github/workflows/checks.yml`) runs the same full command on pull requests, so a hook
+```bash
+node tools/checks/checks.mjs --fast       # what pre-commit would run
+git config core.hooksPath .githooks        # enable the same hooks without pre-commit
+```
+
+Use one or the other. `core.hooksPath` and `pre-commit install` both write git hooks, and
+having both means whichever was installed last wins.
+
+- **pre-commit stage** runs `--fast`: hygiene, privacy and syntax, about a second.
+- **pre-push stage** runs everything, including `node --test pi-extensions/test`.
+
+CI (`.github/workflows/checks.yml`) runs the same command on pull requests, so a hook
 someone forgot to install still cannot pass unnoticed.
+
+### Why local hooks instead of the usual `pre-commit-hooks`
+
+The well-known hook repos (`pre-commit/pre-commit-hooks`, `mirrors-prettier`,
+`ruff-pre-commit`) clone from GitHub on first run and then execute that code. For a
+repository whose payload is agent instructions, that is a supply-chain surface and a
+network requirement for every contributor. Everything those hooks do here is already in
+`checks.mjs`, in a few dozen lines, with no network. Adopt the upstream hooks when a check
+genuinely needs one; add it as a normal `repo:` entry then.
 
 ## What is checked
 

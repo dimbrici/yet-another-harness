@@ -1,0 +1,24 @@
+# pre-commit is the runner; the checks themselves live in tools/checks/checks.mjs.
+#
+# Every hook is `repo: local` + `language: system`, so this config fetches nothing
+# from the network and runs no third-party code. The upside of pre-commit that we
+# keep: one familiar command, staged-file selection, parallel execution, and the
+# pre-push stage. The checks stay dependency-free and also run on their own:
+#
+#   node tools/checks/checks.mjs [--fast] [--fix]
+minimum_pre_commit_version: "3.0.0"
+repos:
+  - repo: local
+    hooks:
+      - id: repo-checks
+        name: repository checks (fast)
+        entry: node tools/checks/checks.mjs --fast
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+      - id: repo-checks-with-tests
+        name: repository checks and tests
+        entry: node tools/checks/checks.mjs
+        language: system
+        pass_filenames: false
+        stages: [pre-push, manual]
