@@ -40,7 +40,7 @@ Some extension checks depend on a local Pi loader; their presence does not estab
 Source files, installed copies, and already loaded extensions can differ.
 
 The tree also includes an advisory [feature exploration skill](framework/skills/feature-exploration/SKILL.md).
-No published role or workflow currently invokes that separate skill, and its pre-pool conversation role remains unresolved.
+The Orchestrator document routes it: for a vague or consequential request the Orchestrator may offer it, and one fresh agent in the existing Interlocutor role holds the conversation as an interim arrangement.
 Its publication does not activate a fourth workflow or grant implementation authority.
 
 ## Repository tour and ownership

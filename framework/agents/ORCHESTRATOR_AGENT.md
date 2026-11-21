@@ -24,6 +24,8 @@ First classify whether requirements and decisions are settled: unsettled product
 
 Unresolved architecture or design is never a Planner trigger — it is a decision for the decision workflow. Brief authorship, including the residual direct-brief option, is defined in `.planning/orch/workflows/EXECUTION_WORKFLOW.md`, Briefs. Capability or evidence gaps may route to the human-gated research lane before triage (Decision Workflow, Research lane); research is advisory, never decides, and unresolved architecture or design still goes to the decision workflow.
 
+**Pre-pool feature exploration (advisory, interim).** A vague or consequential feature request, not a settled, trivial, or routine one, may be explored with the human before it enters the Question Pool. The Orchestrator offers the exploration; it starts when the human says yes. One fresh agent in the existing Interlocutor role holds the conversation, and the human types in that agent's own pane. The assignment brief names the explicit path `.planning/orch/skills/feature-exploration/SKILL.md` (never auto-loaded) and states that the agent quotes each human reply unchanged in its report. A human reply enters any brief, report, or record only as an unchanged quotation; a reading of it is labelled as a reading. Exploration is advisory: it decides nothing, writes no specification, decision, or ledger state, and does not triage. It ends in a confirmed direction or a pending brief, plus unresolved decision candidates that the Orchestrator enters in the Question Pool, where the Decision Workflow applies as usual.
+
 The Architect's role, skills, ownership, and backlog responsibilities are defined once in `.planning/orch/agents/ARCHITECT_AGENT.md`; the decision workflow defines its work.
 
 ## Risk
