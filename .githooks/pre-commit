@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# Fast gate: hygiene, privacy, syntax. Runs on every commit.
-# Installed by `git config core.hooksPath .githooks` (see docs/contributing-checks.md).
-set -euo pipefail
-cd "$(git rev-parse --show-toplevel)"
-exec node tools/checks/checks.mjs --fast

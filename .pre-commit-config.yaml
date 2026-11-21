@@ -1,12 +1,14 @@
 # Upstream hook repositories, pinned by tag. pre-commit fetches them on first run and
-# caches them; `pre-commit autoupdate` moves the pins.
+# caches them; `pre-commit autoupdate` moves the pins. Run it with uv:
+# `uvx pre-commit@4.6.0 run --all-files` (see docs/contributing-checks.md).
 #
 # No prettier: its pre-commit mirror installs node through nodeenv, which fails on this
 # machine, and running it over 40 prose documents rewrites them wholesale. Whitespace
 # is covered by pre-commit-hooks and the formatting rules are in docs/contributing-checks.md.
 #
-# The two `repo: local` hooks at the bottom are the checks no upstream hook provides:
-# this repository's public-repository privacy rules, and the extension test suite.
+# The two `repo: local` hooks at the bottom exist because no upstream hook covers them:
+# this repository's public-repository privacy rules, and the extension test suite. Both
+# are inline entries, so the repository carries no runner of its own.
 minimum_pre_commit_version: "3.0.0"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -14,6 +16,7 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
+      - id: fix-byte-order-marker
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: check-yaml
@@ -57,17 +60,42 @@ repos:
     hooks:
       - id: ruff
 
+  # This repository is public: machine paths, personal email addresses and the customer
+  # names that were deliberately replaced must not creep back in. One grep, so no runner
+  # file is checked in. A line that must name a forbidden word opts out with the marker
+  # "checks:allow" on that same line.
   - repo: local
     hooks:
-      - id: repo-privacy-and-syntax
-        name: repository privacy and syntax checks
-        entry: node tools/checks/checks.mjs --fast
+      - id: repo-privacy
+        name: repository privacy (machine paths, personal emails, replaced customer names)
         language: system
         pass_filenames: false
-        stages: [pre-commit]
-      - id: repo-checks-with-tests
-        name: repository checks and tests
-        entry: node tools/checks/checks.mjs
+        entry: >-
+          bash -c 'hits=$(
+          { git ls-files -z
+          | xargs -0 grep -nHIE
+          -e "/Users/[[:alnum:]._-]"
+          -e "/home/[[:alnum:]._-]"
+          -e "[A-Za-z]:\\\\?Users"
+          -e "\b(masking|tskctl|trino)\b"
+          --
+          | grep -v checks:allow
+          ; git ls-files -z
+          | xargs -0 grep -nHoIE
+          -e "[[:alnum:]._%+-]+@[[:alpha:]][[:alnum:].-]*\.[[:alpha:]][[:alnum:]]+"
+          --
+          | grep -vE "@users\.noreply\.github\.com$|@example\.(com|org)$"
+          ; } 2>/dev/null
+          | grep -v "^\.pre-commit-config\.yaml:");
+          if [ -n "$hits" ]; then printf "%s\n" "$hits"; exit 1; fi'
+
+      # A pushed branch is not cheap to amend, so the suite runs at the pre-push stage.
+      # The suite needs a relay library; the tracked fixture keeps CI self-contained.
+      - id: repo-tests
+        name: extension test suite
         language: system
         pass_filenames: false
         stages: [pre-push, manual]
+        entry: >-
+          bash -c 'ORCH_RELAY_LIB=pi-extensions/test/fixtures/relay-lib.sh
+          exec node --test pi-extensions/test/*.test.mjs'
