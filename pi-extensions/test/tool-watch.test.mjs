@@ -7,6 +7,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { chmodSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
+import { jitiStaticPath } from "./jiti-path.mjs";
 import { afterEach, beforeEach, describe, test } from "node:test";
 
 import {
@@ -281,13 +282,14 @@ exit 0
 
 /** Load tool-watchdog.ts the way pi does, with Date.now and the env bent to the test. */
 async function loadWatchdog() {
-  const jitiStatic =
-    join(homedir(), ".local", "lib", "node_modules", "@earendil-works", "pi-coding-agent", "node_modules", "jiti", "lib", "jiti-static.mjs");
-  const { createJiti } = await import(jitiStatic);
-  const jiti = createJiti(import.meta.url, { moduleCache: false });
   const entry = join(import.meta.dirname, "..", "tool-watchdog.ts");
   let factory;
   try {
+    // Imported here, not at the top of the function: on a machine without pi the
+    // loader is absent, and that must read as a load failure (UNVERIFIED), not crash.
+    const jitiStatic = jitiStaticPath();
+    const { createJiti } = await import(jitiStatic);
+    const jiti = createJiti(import.meta.url, { moduleCache: false });
     factory = await jiti.import(entry, { default: true });
   } catch (error) {
     return { loaded: false, reason: error.message };
@@ -332,8 +334,8 @@ async function loadWatchdog() {
 describe("the entry file (R2.2)", () => {
   test("it registers the three tool handlers, the session hooks, and nothing else", async () => {
     const loaded = await loadWatchdog();
+    if (!loaded.loaded) return console.log(`  [entry smoke] UNVERIFIED: ${loaded.reason}`);
     try {
-      if (!loaded.loaded) return console.log(`  [entry smoke] UNVERIFIED: ${loaded.reason}`);
       assert.equal(loaded.loadError, null);
       assert.deepEqual(loaded.handlerNames, [
         "session_shutdown",

@@ -390,7 +390,9 @@ describe("report block", () => {
     assert.match(block, /EXTENSIONS: 0\n/);
   });
 
-  test("stop dumps the SIGABRT stack of a real python3.12 run and ends the group", () => {
+  test("stop dumps the SIGABRT stack of a real python3.12 run and ends the group", (t) => {
+    // CI images and slim machines vary; the stack dump needs a real interpreter.
+    if (spawnSync("python3.12", ["-V"]).status !== 0) return t.skip("python3.12 is not installed");
     const script = join(root, "sleepy.py");
     writeFileSync(
       script,

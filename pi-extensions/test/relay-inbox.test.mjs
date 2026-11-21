@@ -9,6 +9,7 @@ import assert from "node:assert/strict";
 import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
+import { jitiStaticPath } from "./jiti-path.mjs";
 import { afterEach, beforeEach, describe, test } from "node:test";
 
 import { drainInbox, emitEvent, inboxPaths, startInboxWatch } from "../lib/orch-events.mjs";
@@ -285,15 +286,14 @@ async function shutdownAll() {
   }
 }
 
-const JITI_STATIC =
-  join(homedir(), ".local", "lib", "node_modules", "@earendil-works", "pi-coding-agent", "node_modules", "jiti", "lib", "jiti-static.mjs");
-
 async function loadInto(fake, inbox) {
-  const { createJiti } = await import(JITI_STATIC);
-  const jiti = createJiti(import.meta.url, { moduleCache: false });
   const entry = join(import.meta.dirname, "..", "relay-inbox.ts");
   let factory = null;
   try {
+    // Imported here so a machine without pi reports a load failure (UNVERIFIED)
+    // instead of failing the whole file at import time.
+    const { createJiti } = await import(jitiStaticPath());
+    const jiti = createJiti(import.meta.url, { moduleCache: false });
     factory = await jiti.import(entry, { default: true });
   } catch (cause) {
     return { loaded: false, reason: cause.message };
