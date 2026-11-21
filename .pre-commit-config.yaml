@@ -6,6 +6,10 @@
 # machine, and running it over 40 prose documents rewrites them wholesale. Whitespace
 # is covered by pre-commit-hooks and the formatting rules are in docs/contributing-checks.md.
 #
+# One hook runs at the commit-msg stage rather than over files: the Conventional Commits
+# check on the message itself. `run --all-files` never reaches it (see
+# docs/contributing-checks.md).
+#
 # The two `repo: local` hooks at the bottom exist because no upstream hook covers them:
 # this repository's public-repository privacy rules, and the extension test suite. Both
 # are inline entries, so the repository carries no runner of its own.
@@ -59,6 +63,15 @@ repos:
     rev: v0.17.6
     hooks:
       - id: ruff
+
+  # Commit messages, not files: this hook receives the message file git prepared and
+  # rejects anything that is not a Conventional Commit.
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.5.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        language: python
 
   # This repository is public: machine paths, personal email addresses and the customer
   # names that were deliberately replaced must not creep back in. One grep, so no runner

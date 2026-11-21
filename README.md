@@ -51,7 +51,9 @@ Before you commit, run `make checks`; the same hooks run in CI on every pull req
 they need no installed packages and no network. The Makefile wraps them: `make checks`
 runs every hook on every file, `make checks-full` adds the pre-push stage and its test
 suite, `make fix` is the same hooks with the autofix hooks doing the repairs, `make test`
-runs the suite alone, and `make hooks` installs the git hooks once.
+runs the suite alone, and `make hooks` installs the git hooks once, including the
+commit-message check. Commit messages follow Conventional Commits; see
+[docs/contributing-checks.md](docs/contributing-checks.md#commit-messages).
 
 - Source `framework/agents/` contains role instructions and replaceable routing assignments.
 - Source `framework/workflows/` contains the three workflow rules, current templates, and a historical template.

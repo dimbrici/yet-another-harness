@@ -20,7 +20,8 @@ fix:
 test:
 	ORCH_RELAY_LIB=pi-extensions/test/fixtures/relay-lib.sh node --test pi-extensions/test/*.test.mjs
 
-## Enable the hooks in this clone (pre-commit stage and pre-push stage).
+## Enable the hooks in this clone (pre-commit, commit-msg and pre-push stages).
 hooks:
 	pre-commit install
+	pre-commit install --hook-type commit-msg
 	pre-commit install --hook-type pre-push
