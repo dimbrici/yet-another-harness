@@ -179,7 +179,7 @@ The default runtime-state root is `/tmp/orch/<repo>/`, with relay scripts, inbox
 The Architect's proposed debt-register location is not an established record home.
 
 The advisory [feature exploration skill](../framework/skills/feature-exploration/SKILL.md) can prepare a pending report or a human-confirmed direction and unresolved candidates.
-No published role or workflow currently invokes this separate skill; its pre-pool conversation role remains unresolved.
+The Orchestrator document routes it: one fresh agent in the existing Interlocutor role holds the conversation as an interim arrangement, and the human types in that agent's pane.
 It grants no implementation or canonical-write authority; human direction confirmation does not supply execution permission.
 Generic exploration input and the per-item Researcher lane do not activate that separate conversation route.
 For source ownership and installed-versus-consumer paths, return to the [README](../README.md); definitions remain in the [glossary](glossary.md).

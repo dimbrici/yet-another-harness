@@ -57,7 +57,7 @@ The standalone structural-change procedure without new behavior; feature-driven 
 ### Feature exploration
 
 Advisory investigation of feature directions and unresolved candidates; it neither decides nor implements.
-No published role or workflow invokes it; its pre-pool conversation role remains unresolved.
+The Orchestrator document routes it to one fresh agent in the existing Interlocutor role, as an interim arrangement.
 
 ### Question Pool
 
