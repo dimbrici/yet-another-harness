@@ -4,7 +4,8 @@ Every check is a [pre-commit](https://pre-commit.com/) hook. Most come from upst
 repositories, pinned by tag; `pre-commit autoupdate` moves the pins. Two hooks are local
 because no upstream hook covers them: this repository's privacy rules and the extension
 test suite. Both are inline `entry:` commands, so the repository checks itself in one file
-and carries no check runner of its own.
+and carries no check runner of its own. One hook inspects commit messages instead of files;
+see [Commit messages](#commit-messages).
 
 ## Install
 
@@ -23,6 +24,10 @@ Then, in the clone:
 make hooks
 ```
 
+This installs three git hooks: pre-commit, commit-msg and pre-push. A clone without them
+still commits; it just runs no checks. Repeat `make hooks` after a fresh clone, not after
+every change.
+
 The first run fetches the hook repositories into `~/.cache/pre-commit`; later runs use the
 cache.
 
@@ -36,7 +41,7 @@ The `Makefile` wraps the commands, so nobody has to remember paths or flags.
 | `make checks-full` | the same, then `--hook-stage pre-push`, which runs the extension test suite |
 | `make fix` | the same hooks, which is where the autofix hooks live (whitespace, final newlines, Markdown) |
 | `make test` | `node --test pi-extensions/test/*.test.mjs` with `ORCH_RELAY_LIB` set to the tracked fixture |
-| `make hooks` | `pre-commit install` for the pre-commit and pre-push stages |
+| `make hooks` | `pre-commit install` for the pre-commit, commit-msg and pre-push stages |
 
 `make checks` is the default target. The same two pre-commit commands run in CI on every
 pull request, through the upstream `pre-commit/action`.
@@ -57,6 +62,7 @@ pull request, through the upstream `pre-commit/action`.
 | ruff | ruff-pre-commit | Python |
 | repo-privacy | local, inline grep | machine paths, personal email addresses, replaced customer names |
 | repo-tests | local, inline command, pre-push | `node --test` over the extension suite |
+| conventional-pre-commit | compilerla/conventional-pre-commit, commit-msg | the commit message follows Conventional Commits |
 
 No hook parses JavaScript or TypeScript on its own. The test suite loads those files for
 real, which is stronger evidence than a syntax check, so `repo-tests` covers them.
@@ -64,6 +70,49 @@ real, which is stronger evidence than a syntax check, so `repo-tests` covers the
 Markdown link targets are not verified: markdownlint checks structure, and no maintained
 hook checks relative targets without a nodeenv bootstrap or a Rust build from source. A
 broken relative link in the docs is caught only by the reader.
+
+## Commit messages
+
+Every commit message is a Conventional Commit:
+
+```text
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+The type is one of `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`,
+`revert`, `style`, `test`. The scope is optional. The description is required and starts
+after the colon and one space. The conventional-pre-commit hook reads the message file git
+prepares and fails the commit when the message does not match. It accepts a scope without
+restricting which scopes may be used.
+
+Two examples:
+
+```text
+feat(checks): enforce conventional commit messages
+fix: reject an empty description after the colon
+```
+
+A message that names no type, such as `updated the checks`, fails. So does a missing colon.
+
+To commit without the check, add `--no-verify`:
+
+```bash
+git commit --no-verify -m "updated the checks"
+```
+
+`--no-verify` skips every hook, not just this one: the trailing-whitespace, privacy and
+`repo-tests` checks do not run either. Use it for an emergency, and expect a reviewer to
+ask why.
+
+`pre-commit run --all-files` never runs this hook. That command runs file hooks only, and
+no file is a commit message, so `make checks`, `make checks-full` and the CI jobs verify
+file contents and not message wording. A commit made with hooks installed, and a push to a
+branch where they are installed, are the only places the message check applies. No CI job
+replays commit messages over a range.
 
 ## Configuration files
 
