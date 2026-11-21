@@ -242,16 +242,54 @@ async function routeFor(
   return { provider, model, thinking: thinking || undefined };
 }
 
-/** Read-only availability probe. Never prints or transmits a secret value. */
-async function assertProviderReady(pi: ExtensionAPI, provider: string): Promise<void> {
+/**
+ * Read-only availability probe. Never prints or transmits a secret value.
+ *
+ * `pi auth check` only knows providers it can build without loading packages, so a
+ * provider supplied by an installed extension answers `provider_not_found` (or
+ * `invalid_state` once `--model` forces a runtime) even when it works. Live case:
+ * `commandcode` ships as an extension, answers not_ready, and runs this session.
+ * So when the verdict is not `ready`, ask the runtime once with a one-token call
+ * against the role's own model, and accept only real output. A provider that
+ * cannot answer stays refused: no substitution either way.
+ */
+async function assertProviderReady(pi: ExtensionAPI, provider: string, model: string): Promise<void> {
   const result = await sh(pi, "pi", ["auth", "check", "--provider", provider]);
   const verdict = (result.stdout.trim().split("\n").pop() ?? "").trim();
-  if (verdict !== "ready") {
-    throw new Error(
-      `provider '${provider}' is not ready (pi auth check said: '${verdict || result.stderr.trim()}'). ` +
-        "No substitution is made -- fix the route or pick another assigned role.",
-    );
-  }
+  if (verdict === "ready") return;
+
+  const probe = await sh(
+    pi,
+    "/usr/bin/env",
+    [
+      "-u",
+      "PI_SESSION_FILE",
+      "-u",
+      "PI_SESSION_ID",
+      "-u",
+      "PI_PROVIDER",
+      "-u",
+      "PI_MODEL",
+      "-u",
+      "PI_REASONING_LEVEL",
+      "pi",
+      "--print",
+      "--model",
+      `${provider}/${model}`,
+      "Reply with exactly: PROBE_OK",
+    ],
+    180_000,
+  );
+  const probeOut = probe.stdout.trim();
+  const probeErr = probe.stderr.trim();
+  if (probe.code === 0 && probeOut.includes("PROBE_OK")) return;
+
+  throw new Error(
+    `provider '${provider}' is not ready (pi auth check said: '${verdict || result.stderr.trim()}'; ` +
+      `model probe on '${provider}/${model}' exited ${probe.code}: ` +
+      `'${(probeErr || probeOut).slice(0, 200) || "(no output)"}'). ` +
+      "No substitution is made -- fix the route or pick another assigned role.",
+  );
 }
 
 /** Index the generated relay scripts by the agent they watch, for the repo at `cwd`. */
@@ -377,7 +415,7 @@ export default function (pi: ExtensionAPI) {
 
       const cwd = ctx.cwd;
       const route = await routeFor(pi, cwd, params.role);
-      await assertProviderReady(pi, route.provider);
+      await assertProviderReady(pi, route.provider, route.model);
 
       const briefPath = absolute(cwd, params.briefPath);
       if (!existsSync(briefPath)) throw new Error(`brief not found: ${briefPath}`);
