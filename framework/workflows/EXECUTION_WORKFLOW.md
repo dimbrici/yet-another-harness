@@ -81,14 +81,15 @@ The Independent Reviewer role and its shared authority are defined once in `.pla
    Repeated failure, a design/scope change, or newly exposed ambiguity escalates to the Orchestrator and, when needed, planner rework or the human.
 10. **Acceptance.** A PASS verdict accepted by the Orchestrator means the package has **met its acceptance bar**; it does not by itself put the package's code into the shipping tree (step 11 does that). Dependent work unlocks only once its prerequisites are accepted **and, where a prerequisite ran in a worktree, integrated** — so a dependent worktree is always branched from a checkpoint that already contains what it depends on.
 11. **Merge-back — the package's completing step, not a package of its own.** A package that ran in a worktree branch reaches the shipping tree only here, and only **after** step 10 accepts it: a PASS verdict comes first, and a FAILed or rejected package is never merged. The merge-back is therefore:
-   - **the closing step of an already-planned package**, not a new acceptance package. It is never partitioned by the Planner as its own package, never carries its own acceptance bar, and is **not board work in the feature sense** — it is tracked as the package's closing state in the ledger, not opened as a separate task. Its method is settled by the package's own contract (branch, base, owned paths) plus live Git evidence at execution time; it needs no new plan.
-   - **authorized in one of two modes, chosen by the human and recorded with the package in the ledger:**
-     - **`auto`** — the human pre-authorizes the merge, for one package or a standing batch, so the step **fires as soon as the package is `ACCEPTED`**, with no further ask. Pre-authorization is real Git authorization: it must be explicit, recorded with its exact scope, and it never covers a package outside that scope.
-     - **`pending`** — the human authorizes **each** merge explicitly after reviewing the acceptance.
+
+- **the closing step of an already-planned package**, not a new acceptance package. It is never partitioned by the Planner as its own package, never carries its own acceptance bar, and is **not board work in the feature sense** — it is tracked as the package's closing state in the ledger, not opened as a separate task. Its method is settled by the package's own contract (branch, base, owned paths) plus live Git evidence at execution time; it needs no new plan.
+- **authorized in one of two modes, chosen by the human and recorded with the package in the ledger:**
+  - **`auto`** — the human pre-authorizes the merge, for one package or a standing batch, so the step **fires as soon as the package is `ACCEPTED`**, with no further ask. Pre-authorization is real Git authorization: it must be explicit, recorded with its exact scope, and it never covers a package outside that scope.
+  - **`pending`** — the human authorizes **each** merge explicitly after reviewing the acceptance.
      **Absent a recorded pre-authorization the mode is `pending`.** The default is fail-closed: an unrecorded, stale, or ambiguous authorization is never treated as `auto`.
-   - **still a Git action under the main document's Git boundary**: performed by an assigned worker, never by the Orchestrator, in the recorded order — and it remains **separate explicit authorization** unless mode `auto` has already supplied it.
-   - **verified like any other mutation**: a pre-merge run fixing the expected inventory the post-merge run must equal, the owned paths confirmed as the branch's exact delta, and a conflict reported as a blocker rather than resolved by discarding a side.
-   - **expected to be a no-op for the acceptance bar.** A successful merge proves the tree still builds; it never substitutes for the package's review, and a green post-merge run cannot rescue a FAILed review.
+- **still a Git action under the main document's Git boundary**: performed by an assigned worker, never by the Orchestrator, in the recorded order — and it remains **separate explicit authorization** unless mode `auto` has already supplied it.
+- **verified like any other mutation**: a pre-merge run fixing the expected inventory the post-merge run must equal, the owned paths confirmed as the branch's exact delta, and a conflict reported as a blocker rather than resolved by discarding a side.
+- **expected to be a no-op for the acceptance bar.** A successful merge proves the tree still builds; it never substitutes for the package's review, and a green post-merge run cannot rescue a FAILed review.
 
 ## Markers
 

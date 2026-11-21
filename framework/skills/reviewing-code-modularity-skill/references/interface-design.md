@@ -9,20 +9,25 @@ The goal is to compare *materially different* shapes and recommend one. If the a
 Generate 2 to 4 designs that differ in what the public surface is and what it hides. Skip any design whose precondition the code does not meet.
 
 ### Design A: Minimal surface
+
 - 1-3 public entry points; hide sequencing and implementation detail behind them.
 - Prefer a boring, direct implementation.
 - This is usually the right default.
 
 ### Design B: Caller-optimized
+
 - Make the most common caller trivial; keep uncommon cases possible but not dominant.
 - Optimize the surface for how the code is actually called today, not all callers equally.
 
 ### Design C: Extension-friendly
+
 - Only when *multiple real variations already exist* in the codebase.
 - Avoid speculative extension points. One variation is not a reason.
 
 ### Design D: Seam / adapters
+
 Allowed only with real, present pressure you can point to — at least one of:
+
 - Multiple implementations already exist.
 - Tests are genuinely impossible (not just inconvenient) without a seam.
 - An external dependency's coupling is actively hurting the code.

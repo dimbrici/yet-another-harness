@@ -59,7 +59,7 @@ const base = {
   wait_get: "done",
   artifact_or_report: "/tmp/report.md",
   tsk_id: "T9",
-  relay_log: "/tmp/relay.log",
+  relay_log: "/tmp/relay.log",  // pragma: allowlist secret (SHA-256 digest pin, not a credential)
   extra: "",
 };
 
@@ -298,18 +298,18 @@ describe("parseEvent and renderFlatLine", () => {
 describe("the R1 helper bodies are pinned (row R2.7)", () => {
   const LIB = relayLib();
   const PINNED = {
-    relay_log: "c36d1479e56334c6",
-    relay_state: "22cd52fff1ab2d31",
-    relay_fire: "0525fbe890c4e3d8",
-    relay_settle: "c88f8384ea77caee",
+    relay_log: "c36d1479e56334c6",  // pragma: allowlist secret (SHA-256 digest pin, not a credential)
+    relay_state: "22cd52fff1ab2d31",  // pragma: allowlist secret (SHA-256 digest pin, not a credential)
+    relay_fire: "0525fbe890c4e3d8",  // pragma: allowlist secret (SHA-256 digest pin, not a credential)
+    relay_settle: "c88f8384ea77caee",  // pragma: allowlist secret (SHA-256 digest pin, not a credential)
     // P3b merged herdr's stderr answer into relay_is_gone (`2>/dev/null` -> `2>&1`),
     // because herdr 0.9.1 writes a missing-agent answer to stderr only: without the
     // merge no read ever confirmed a removed agent and watchers lingered. That edit
     // crossed the R1 freeze, so the digest was re-pinned by human decision on
     // 2026-10-13 (GLOBAL-TESTS port); the previous value was e0ccb91c91eada14.
-    relay_is_gone: "946ecd2682a02c68",
-    relay_blocked_label: "444b58f8ced8aafc",
-    relay_fire_status: "0323849b47de227d",
+    relay_is_gone: "946ecd2682a02c68",  // pragma: allowlist secret (SHA-256 digest pin, not a credential)
+    relay_blocked_label: "444b58f8ced8aafc",  // pragma: allowlist secret (SHA-256 digest pin, not a credential)
+    relay_fire_status: "0323849b47de227d",  // pragma: allowlist secret (SHA-256 digest pin, not a credential)
   };
 
   function body(source, name) {

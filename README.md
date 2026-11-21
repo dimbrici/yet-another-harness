@@ -45,6 +45,14 @@ Its publication does not activate a fourth workflow or grant implementation auth
 
 ## Repository tour and ownership
 
+- Source `.pre-commit-config.yaml` defines every repository check, and pre-commit is the only runner. See [docs/contributing-checks.md](docs/contributing-checks.md) for the hooks, the Makefile targets and the deliberate exceptions.
+
+Before you commit, run `make checks`; the same hooks run in CI on every pull request, and
+they need no installed packages and no network. The Makefile wraps them: `make checks`
+runs every hook on every file, `make checks-full` adds the pre-push stage and its test
+suite, `make fix` is the same hooks with the autofix hooks doing the repairs, `make test`
+runs the suite alone, and `make hooks` installs the git hooks once.
+
 - Source `framework/agents/` contains role instructions and replaceable routing assignments.
 - Source `framework/workflows/` contains the three workflow rules, current templates, and a historical template.
 - Source `framework/skills/` contains skills with supporting references, evaluations, and license material.

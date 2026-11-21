@@ -724,7 +724,7 @@ function formatEmployeeLabel(employee: Employee) {
 }
 ```
 
-### Do not immediately create:
+### Do not immediately create
 
 ```ts
 function formatPersonLikeThing(entity: { firstName: string; lastName: string }) {

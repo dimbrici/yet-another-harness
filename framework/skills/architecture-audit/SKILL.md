@@ -49,7 +49,7 @@ Clean Architecture, Hexagonal / Ports-and-Adapters, DDD, CQRS, repositories, ser
 
 ## Output contract
 
-```
+```text
 Current dependency structure:   <sketch + evidence>
 Problem:                        <today's cost, not a hypothetical>
 Desired dependency structure:   <sketch>

@@ -7,6 +7,7 @@ import assert from "node:assert/strict";
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
+import { jitiStaticPath } from "./jiti-path.mjs";
 import { after, describe, test } from "node:test";
 
 import {
@@ -188,8 +189,7 @@ describe("hook wiring", () => {
 // quietly tested by a substitute.
 
 test("smoke check: agent-health.ts through pi's own jiti loader", async () => {
-  const jitiStatic =
-    join(homedir(), ".local", "lib", "node_modules", "@earendil-works", "pi-coding-agent", "node_modules", "jiti", "lib", "jiti-static.mjs");
+  const jitiStatic = jitiStaticPath();
   const entry = join(import.meta.dirname, "..", "agent-health.ts");
   const pi = fakePi();
   try {

@@ -1,0 +1,101 @@
+# Upstream hook repositories, pinned by tag. pre-commit fetches them on first run and
+# caches them; `pre-commit autoupdate` moves the pins. Run it with uv:
+# `uvx pre-commit@4.6.0 run --all-files` (see docs/contributing-checks.md).
+#
+# No prettier: its pre-commit mirror installs node through nodeenv, which fails on this
+# machine, and running it over 40 prose documents rewrites them wholesale. Whitespace
+# is covered by pre-commit-hooks and the formatting rules are in docs/contributing-checks.md.
+#
+# The two `repo: local` hooks at the bottom exist because no upstream hook covers them:
+# this repository's public-repository privacy rules, and the extension test suite. Both
+# are inline entries, so the repository carries no runner of its own.
+minimum_pre_commit_version: "3.0.0"
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=512]
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+        # The relay fixture is sourced by the tests, never executed, and its 0644
+        # mode is part of the deployed-copy evidence.
+        exclude: ^pi-extensions/test/fixtures/
+      - id: detect-private-key
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.50.0
+    hooks:
+      - id: markdownlint
+        args: [--config, .markdownlint.yaml, --fix]
+        # nodeenv cannot bootstrap node on this machine; use the system node.
+        language_version: system
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1-1
+    hooks:
+      - id: shellcheck
+        # SC1091: helper templates source relay-lib.sh from the consumer's .planning,
+        #         which does not exist in this repo; SC2034: template placeholders are
+        #         assigned there to be read by the generated script.
+        args:
+          - -e
+          - SC1091,SC2034
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.6
+    hooks:
+      - id: ruff
+
+  # This repository is public: machine paths, personal email addresses and the customer
+  # names that were deliberately replaced must not creep back in. One grep, so no runner
+  # file is checked in. A line that must name a forbidden word opts out with the marker
+  # "checks:allow" on that same line.
+  - repo: local
+    hooks:
+      - id: repo-privacy
+        name: repository privacy (machine paths, personal emails, replaced customer names)
+        language: system
+        pass_filenames: false
+        entry: >-
+          bash -c 'hits=$(
+          { git ls-files -z
+          | xargs -0 grep -nHIE
+          -e "/Users/[[:alnum:]._-]"
+          -e "/home/[[:alnum:]._-]"
+          -e "[A-Za-z]:\\\\?Users"
+          -e "\b(masking|tskctl|trino)\b"
+          --
+          | grep -v checks:allow
+          ; git ls-files -z
+          | xargs -0 grep -nHoIE
+          -e "[[:alnum:]._%+-]+@[[:alpha:]][[:alnum:].-]*\.[[:alpha:]][[:alnum:]]+"
+          --
+          | grep -vE "@users\.noreply\.github\.com$|@example\.(com|org)$"
+          ; } 2>/dev/null
+          | grep -v "^\.pre-commit-config\.yaml:");
+          if [ -n "$hits" ]; then printf "%s\n" "$hits"; exit 1; fi'
+
+      # A pushed branch is not cheap to amend, so the suite runs at the pre-push stage.
+      # The suite needs a relay library; the tracked fixture keeps CI self-contained.
+      - id: repo-tests
+        name: extension test suite
+        language: system
+        pass_filenames: false
+        stages: [pre-push, manual]
+        entry: >-
+          bash -c 'ORCH_RELAY_LIB=pi-extensions/test/fixtures/relay-lib.sh
+          exec node --test pi-extensions/test/*.test.mjs'

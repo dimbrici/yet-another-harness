@@ -1,0 +1,33 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Node first: the markdownlint hook runs on the system node, and the test suite
+      # runs node --test.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      # pre-commit is the only runner. The action brings its own Python; the hook
+      # environments stay pre-commit's own business, cached across runs.
+      - name: Cache pre-commit hook environments
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-v1-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: pre-commit-${{ runner.os }}-v1-
+      - name: Hooks (pre-commit stage)
+        uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --all-files --show-diff-on-failure
+      - name: Hooks and tests (pre-push stage)
+        uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --all-files --hook-stage pre-push --show-diff-on-failure

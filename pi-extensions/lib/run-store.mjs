@@ -546,4 +546,3 @@ export function readKnocks(runDir) {
     })
     .filter((entry) => entry && entry.key);
 }
-
